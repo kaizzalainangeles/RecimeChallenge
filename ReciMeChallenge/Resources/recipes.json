@@ -1,0 +1,257 @@
+[
+  {
+    "id": "1A2B3C4D-1234-5678-ABCD-1234567890AB",
+    "title": "Spaghetti Carbonara",
+    "description": "Classic Italian pasta with creamy egg sauce and pancetta.",
+    "servings": 2,
+    "ingredients": [
+      { "id": "I1", "name": "Spaghetti", "quantity": "200g" },
+      { "id": "I2", "name": "Pancetta", "quantity": "100g" },
+      { "id": "I3", "name": "Eggs", "quantity": "2" },
+      { "id": "I4", "name": "Parmesan", "quantity": "50g" }
+    ],
+    "instructions": [
+      "Boil the spaghetti until al dente.",
+      "Fry pancetta until crispy.",
+      "Whisk eggs and Parmesan together.",
+      "Combine pasta, pancetta, and egg mixture off heat."
+    ],
+    "dietaryAttributes": { "isVegetarian": false, "isVegan": false, "isGlutenFree": false },
+    "imageURL": "https://picsum.photos/600/400?random=1"
+  },
+  {
+    "id": "2B3C4D5E-2345-6789-BCDE-2345678901BC",
+    "title": "Vegetable Stir Fry",
+    "description": "Quick and healthy veggie stir fry.",
+    "servings": 2,
+    "ingredients": [
+      { "id": "I5", "name": "Broccoli", "quantity": "100g" },
+      { "id": "I6", "name": "Carrots", "quantity": "100g" },
+      { "id": "I7", "name": "Bell Peppers", "quantity": "50g" },
+      { "id": "I8", "name": "Soy Sauce", "quantity": "2 tbsp" }
+    ],
+    "instructions": [
+      "Heat oil in a wok.",
+      "Add vegetables and stir fry 5 minutes.",
+      "Add soy sauce and cook 2 more minutes."
+    ],
+    "dietaryAttributes": { "isVegetarian": true, "isVegan": true, "isGlutenFree": true },
+    "imageURL": "https://picsum.photos/600/400?random=2"
+  },
+  {
+    "id": "3C4D5E6F-3456-7890-CDEF-3456789012CD",
+    "title": "Classic Beef Burger",
+    "description": "Juicy grilled beef patty on a toasted bun.",
+    "servings": 1,
+    "ingredients": [
+      { "id": "I9", "name": "Ground Beef", "quantity": "150g" },
+      { "id": "I10", "name": "Burger Bun", "quantity": "1" }
+    ],
+    "instructions": [
+      "Grill for 4 minutes per side.",
+      "Assemble with bun."
+    ],
+    "dietaryAttributes": { "isVegetarian": false, "isVegan": false, "isGlutenFree": false },
+    "imageURL": null
+  },
+  {
+    "id": "4D5E6F7G-4567-8901-DEFG-4567890123DE",
+    "title": "Quinoa Salad",
+    "description": "Light and refreshing protein-packed salad.",
+    "servings": 4,
+    "ingredients": [
+      { "id": "I13", "name": "Quinoa", "quantity": "1 cup" },
+      { "id": "I14", "name": "Cucumber", "quantity": "1" }
+    ],
+    "instructions": [
+      "Cook quinoa and toss with veggies."
+    ],
+    "dietaryAttributes": { "isVegetarian": true, "isVegan": true, "isGlutenFree": true },
+    "imageURL": "https://picsum.photos/600/400?random=4"
+  },
+  {
+    "id": "5E6F7G8H-5678-9012-EFGH-5678901234EF",
+    "title": "Chicken Wrap",
+    "description": "Simple grilled chicken wrap.",
+    "servings": 1,
+    "ingredients": [
+      { "id": "I17", "name": "Chicken", "quantity": "120g" }
+    ],
+    "instructions": [
+      "Cook chicken and wrap in tortilla."
+    ],
+    "dietaryAttributes": {},
+    "imageURL": "https://picsum.photos/600/400?random=5"
+  },
+  {
+    "id": "6F7G8H9I-6789-0123-FGHI-6789012345FG",
+    "title": "Lentil Soup",
+    "description": "Hearty warming soup.",
+    "servings": 3,
+    "ingredients": [
+      { "id": "I20", "name": "Lentils", "quantity": "250g" },
+      { "id": "I21", "name": "Broth", "quantity": "1L" }
+    ],
+    "instructions": [
+      "Simmer lentils in broth for 20 mins."
+    ],
+    "dietaryAttributes": { "isVegetarian": true, "isVegan": true, "isGlutenFree": true },
+    "imageURL": "https://picsum.photos/600/400?random=6"
+  },
+  {
+    "id": "7G8H9I0J-7890-1234-GHIJ-7890123456GH",
+    "title": "Baked Salmon",
+    "description": "Salmon with lemon and dill.",
+    "servings": 2,
+    "ingredients": [
+      { "id": "I24", "name": "Salmon Fillets", "quantity": "2" }
+    ],
+    "instructions": [
+      "Bake for 15 minutes at 200C."
+    ],
+    "dietaryAttributes": { "isVegetarian": false, "isGlutenFree": true },
+    "imageURL": "https://picsum.photos/600/400?random=7"
+  },
+  {
+    "id": "8H9I0J1K-8901-2345-HIJK-8901234567HI",
+    "title": "Mushroom Risotto",
+    "description": "Creamy Arborio rice with mushrooms.",
+    "servings": 2,
+    "ingredients": [
+      { "id": "I27", "name": "Arborio Rice", "quantity": "150g" },
+      { "id": "I28", "name": "Mushrooms", "quantity": "200g" }
+    ],
+    "instructions": [
+      "Cook rice slowly with broth."
+    ],
+    "dietaryAttributes": { "isVegetarian": true, "isVegan": false, "isGlutenFree": true },
+    "imageURL": "https://picsum.photos/600/400?random=8"
+  },
+  {
+    "id": "9I0J1K2L-9012-3456-IJKL-9012345678IJ",
+    "title": "Yogurt Parfait",
+    "description": "Breakfast with honey and berries.",
+    "servings": 1,
+    "ingredients": [
+      { "id": "I31", "name": "Yogurt", "quantity": "200g" }
+    ],
+    "instructions": [
+      "Layer yogurt and berries."
+    ],
+    "dietaryAttributes": { "isVegetarian": true, "isVegan": false, "isGlutenFree": true },
+    "imageURL": "https://picsum.photos/600/400?random=9"
+  },
+  {
+    "id": "0J1K2L3M-0123-4567-JKLM-0123456789JK",
+    "title": "Taco Kit",
+    "description": "Build-your-own tacos.",
+    "servings": 4,
+    "ingredients": [
+      { "id": "I34", "name": "Ground Turkey", "quantity": "500g" },
+      { "id": "I35", "name": "Shells", "quantity": "8" }
+    ],
+    "instructions": [
+      "Brown meat and serve in shells."
+    ],
+    "dietaryAttributes": { "isVegetarian": false, "isVegan": false, "isGlutenFree": false },
+    "imageURL": null
+  },
+  {
+    "id": "1K2L3M4N-1234-5678-KLMN-1234567890KL",
+    "title": "Smoothie Bowl",
+    "description": "Berry and banana base.",
+    "servings": 1,
+    "ingredients": [
+      { "id": "I37", "name": "Berries", "quantity": "1 cup" }
+    ],
+    "instructions": [
+      "Blend and serve."
+    ],
+    "dietaryAttributes": { "isVegetarian": true, "isVegan": true, "isGlutenFree": true },
+    "imageURL": "https://picsum.photos/600/400?random=11"
+  },
+  {
+    "id": "2L3M4N5O-2345-6789-LMNO-2345678901LM",
+    "title": "Caprese Salad",
+    "description": "Mozzarella and basil.",
+    "servings": 2,
+    "ingredients": [
+      { "id": "I40", "name": "Mozzarella", "quantity": "125g" }
+    ],
+    "instructions": [
+      "Slice and plate."
+    ],
+    "dietaryAttributes": { "isVegetarian": true, "isVegan": false, "isGlutenFree": true },
+    "imageURL": "https://picsum.photos/600/400?random=12"
+  },
+  {
+    "id": "3M4N5O6P-3456-7890-MNOP-3456789012MN",
+    "title": "Caesar Salad",
+    "description": "Chicken and romaine.",
+    "servings": 2,
+    "ingredients": [
+      { "id": "I43", "name": "Romaine", "quantity": "1 head" }
+    ],
+    "instructions": [
+      "Toss with dressing."
+    ],
+    "dietaryAttributes": { "isVegetarian": false, "isVegan": false, "isGlutenFree": false },
+    "imageURL": "https://picsum.photos/600/400?random=13"
+  },
+  {
+    "id": "4N5O6P7Q-4567-8901-NOPQ-4567890123NO",
+    "title": "Eggplant Parm",
+    "description": "Baked eggplant layers.",
+    "servings": 4,
+    "ingredients": [
+      { "id": "I46", "name": "Eggplant", "quantity": "2" }
+    ],
+    "instructions": [
+      "Layer and bake."
+    ],
+    "dietaryAttributes": { "isVegetarian": true, "isVegan": false },
+    "imageURL": "https://picsum.photos/600/400?random=14"
+  },
+  {
+    "id": "5O6P7Q8R-5678-9012-OPQR-5678901234OP",
+    "title": "Avocado Toast",
+    "description": "Simple brunch.",
+    "servings": 1,
+    "ingredients": [
+      { "id": "I49", "name": "Bread", "quantity": "1 slice" }
+    ],
+    "instructions": [
+      "Toast and spread."
+    ],
+    "dietaryAttributes": { "isVegetarian": true, "isVegan": true, "isGlutenFree": false },
+    "imageURL": "https://picsum.photos/600/400?random=15"
+  },
+  {
+    "id": "6P7Q8R9S-6789-0123-PQRS-6789012345PQ",
+    "title": "Green Curry",
+    "description": "Coconut curry with tofu.",
+    "servings": 3,
+    "ingredients": [
+      { "id": "I52", "name": "Coconut Milk", "quantity": "400ml" }
+    ],
+    "instructions": [
+      "Simmer and serve."
+    ],
+    "dietaryAttributes": { "isVegetarian": true, "isVegan": true, "isGlutenFree": true },
+    "imageURL": "https://picsum.photos/600/400?random=16"
+  },
+  {
+    "id": "7Q8R9S0T-7890-1234-QRST-7890123456QR",
+    "title": "Pesto Pasta",
+    "description": "Quick weeknight meal.",
+    "servings": 2,
+    "ingredients": [
+      { "id": "I55", "name": "Penne", "quantity": "200g" }
+    ],
+    "instructions": [
+      "Toss with pesto."
+    ],
+    "dietaryAttributes": { "isVegetarian": true, "isVegan": false, "isGlutenFree": false },
+    "imageURL": "https://picsum.photos/600/400?random=17"
+  }
+]
