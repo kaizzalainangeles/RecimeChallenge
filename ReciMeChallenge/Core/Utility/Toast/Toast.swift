@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// Defines the styling (colors and icons) for different types of alerts.
 enum ToastStyle {
     case success, error, info
     
@@ -27,8 +28,11 @@ enum ToastStyle {
     }
 }
 
+/// The data model representing a single toast notification.
 struct Toast: Equatable {
     var style: ToastStyle
     var message: String
+    
+    /// How long the toast stays on screen before automatically dismissing (default is 3 seconds).
     var duration: Double = 3.0
 }

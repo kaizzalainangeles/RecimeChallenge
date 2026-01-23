@@ -8,12 +8,14 @@
 import Foundation
 import CoreData
 
+/// Protocol defining the local storage operations for recipes.
 protocol RecipePersistenceService{
     func saveRecipes(_ recipes: [Recipe]) throws
     func fetchRecipes() -> [Recipe]
     func deleteRecipe(id: String) throws
 }
 
+/// Core Data implementation of the persistence service.
 final class RecipeCoreDataStorage: RecipePersistenceService {
     let container: NSPersistentContainer
     
@@ -36,6 +38,7 @@ final class RecipeCoreDataStorage: RecipePersistenceService {
         }
     }
     
+    /// Converts and saves a list of Recipe models into the database.
     func saveRecipes(_ recipes: [Recipe]) throws {
         for recipe in recipes {
             // 1. Check for existing entity to prevent duplicates (Upsert)
@@ -72,6 +75,7 @@ final class RecipeCoreDataStorage: RecipePersistenceService {
         try save()
     }
     
+    /// Retrieves all stored recipes from the database, sorted by title.
     func fetchRecipes() -> [Recipe] {
         let request: NSFetchRequest<RecipeEntity> = RecipeEntity.fetchRequest()
         
@@ -85,7 +89,7 @@ final class RecipeCoreDataStorage: RecipePersistenceService {
             // Guard only for the absolutely vital field: ID
             guard let id = entity.id else { return nil }
             
-            // Use our strategy: decode or provide defaults if the Blob is missing
+            // Decode the stored binary data back into Swift arrays/structs
             let ingredients = (try? decoder.decode([Ingredient].self, from: entity.ingredients ?? Data())) ?? []
             let instructions = (try? decoder.decode([String].self, from: entity.instructions ?? Data())) ?? []
             let dietary = (try? decoder.decode(DietaryAttributes.self, from: entity.dietaryAttributes ?? Data())) ?? DietaryAttributes()
@@ -104,6 +108,7 @@ final class RecipeCoreDataStorage: RecipePersistenceService {
         }
     }
     
+    /// Removes a specific recipe from the database using its identifier.
     func deleteRecipe(id: String) throws {
         let request: NSFetchRequest<RecipeEntity> = RecipeEntity.fetchRequest()
         request.predicate = NSPredicate(format: "id == %@", id)

@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Defines the main navigation sections of the ReciMe app.
 enum Tab: Int, CaseIterable {
     case home = 0
     case search = 1

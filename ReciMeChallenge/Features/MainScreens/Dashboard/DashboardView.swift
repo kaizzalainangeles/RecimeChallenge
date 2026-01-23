@@ -64,7 +64,7 @@ struct RecipeDashboardView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: viewModel.onLogoButtonTapped) {
-                        Image("SplashLogo")
+                        Image("ReciMeChallengeLogo")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 40, height: 40)

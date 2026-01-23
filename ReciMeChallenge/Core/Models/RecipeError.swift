@@ -7,6 +7,8 @@
 
 import Foundation
 
+/// Defines the possible error states for recipe-related operations in the ReciMe app.
+/// Conforms to 'LocalizedError' to provide user-friendly error messages.
 enum RecipeError: Error, LocalizedError {
     case connectionFailed
     case decodingError(String)

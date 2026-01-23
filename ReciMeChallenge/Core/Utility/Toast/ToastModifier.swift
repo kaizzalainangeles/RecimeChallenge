@@ -7,13 +7,16 @@
 
 import SwiftUI
 
+/// A custom modifier that manages the presentation lifecycle of a toast notification.
 struct ToastModifier: ViewModifier {
     @Binding var toast: Toast?
+    
+    /// Holds a reference to the scheduled dismissal task so it can be cancelled if a new toast arrives.
     @State private var workItem: DispatchWorkItem?
     
     func body(content: Content) -> some View {
         content
-            .overlay(alignment: .top) {
+            .overlay(alignment: .top) { // Places the toast at the top of the screen
                 Group {
                     if let toast = toast {
                         ToastView(style: toast.style, message: toast.message)
@@ -25,12 +28,13 @@ struct ToastModifier: ViewModifier {
                                 )
                             )
                             .onTapGesture {
-                                dismissToast()
+                                dismissToast() // Allow user to manually dismiss by tapping
                             }
                     }
                 }
                 .animation(.spring(response: 0.4, dampingFraction: 0.7), value: toast)
             }
+            // Watch for changes in the toast binding to trigger the timer
             .onChange(of: toast) { oldValue, newValue in
                 if newValue != nil {
                     showToast()
@@ -38,11 +42,14 @@ struct ToastModifier: ViewModifier {
             }
     }
     
+    /// Prepares and displays the toast, including haptics and auto-dismiss timer.
     private func showToast() {
         guard let toast = toast else { return }
         
+        // Trigger a light vibration when the toast appears
         UIImpactFeedbackGenerator(style: .light).impactOccurred()
         
+        // Cancel any existing timer to prevent early dismissal of the new toast
         workItem?.cancel()
         
         let task = DispatchWorkItem {
@@ -50,9 +57,11 @@ struct ToastModifier: ViewModifier {
         }
         
         workItem = task
+        // Schedule the auto-dismiss based on the toast's specific duration
         DispatchQueue.main.asyncAfter(deadline: .now() + toast.duration, execute: task)
     }
     
+    /// Hides the toast and cleans up the background tasks.
     private func dismissToast() {
         withAnimation(.easeInOut(duration: 0.2)) {
             toast = nil
@@ -61,7 +70,9 @@ struct ToastModifier: ViewModifier {
         workItem = nil
     }
 }
+
 extension View {
+    /// Method to apply the toast modifier
     func toastView(toast: Binding<Toast?>) -> some View {
         self.modifier(ToastModifier(toast: toast))
     }

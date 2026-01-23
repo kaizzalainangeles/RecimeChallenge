@@ -63,7 +63,7 @@ struct SliderView: View {
             }
             .frame(width: 150, height: 280)
             .foregroundColor(.orange)
-            .background(Color(.systemGray6), in: RoundedRectangle(cornerRadius: 20))
+            .background(.clear)
         }
         .foregroundStyle(.primary)
     }
@@ -106,6 +106,7 @@ struct SliderView: View {
                 .background(Capsule().fill(Color.orange.opacity(0.1)))
                 .foregroundColor(.orange)
         }
+        .background(.clear)
     }
     
     private func getNoRecipeMessage() -> String {

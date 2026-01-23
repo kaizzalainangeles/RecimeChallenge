@@ -13,8 +13,7 @@ struct RecipeGridView: View {
     var onReachEnd: (() -> Void)? = nil // Pagination trigger
     
     private let columns = [
-        GridItem(.flexible(), spacing: 16),
-        GridItem(.flexible(), spacing: 16)
+        GridItem(.adaptive(minimum: 170, maximum: .infinity), spacing: 16)
     ]
     
     var body: some View {

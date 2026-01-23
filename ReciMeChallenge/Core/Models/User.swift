@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Represents the user. Mainly used to display information for the profile view
 struct User: Codable {
     let id: String
     let userName: String

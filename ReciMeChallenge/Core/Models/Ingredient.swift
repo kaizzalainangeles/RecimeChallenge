@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Represents the instructions for a recipe.
 struct Ingredient: Identifiable, Codable, Hashable {
     let id: String
     var name: String

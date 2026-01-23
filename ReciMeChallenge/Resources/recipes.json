@@ -16,14 +16,14 @@
       "Whisk eggs and cheese in a bowl.",
       "Combine pasta with guanciale, remove from heat, and quickly stir in egg mixture."
     ],
-    "dietaryAttributes": {
-      "isVegetarian": false,
-      "isVegan": false,
-      "isGlutenFree": false,
-      "isSugarFree": true
+    "dietary_attributes": {
+      "is_vegetarian": false,
+      "is_vegan": false,
+      "is_gluten_free": false,
+      "is_sugar_free": true
     },
-    "imageURL": "https://picsum.photos/600/400?random=1",
-    "creatorId": "user_789"
+    "image_url": "https://picsum.photos/600/400?random=1",
+    "creator_id": "user_789"
   },
   {
     "id": "B2C3D4E5-F6G7-H8I9-J0K1-L2M3N4O5P6Q7",
@@ -42,22 +42,22 @@
       "Poach an egg in simmering water for 3 minutes.",
       "Spread avocado on toast and top with the egg."
     ],
-    "dietaryAttributes": {
-      "isVegetarian": true,
-      "isVegan": false,
-      "isGlutenFree": false,
-      "isSugarFree": true
+    "dietary_attributes": {
+      "is_vegetarian": true,
+      "is_vegan": false,
+      "is_gluten_free": false,
+      "is_sugar_free": true
     },
-    "imageURL": "https://picsum.photos/600/400?random=2"
+    "image_url": "https://picsum.photos/600/400?random=2"
   },
   {
     "id": "C3D4E5F6-G7H8-I9J0-K1L2-M3N4O5P6Q7R8",
     "title": "Incomplete Test Recipe",
     "description": "This recipe tests missing fields like servings and ingredients.",
-    "dietaryAttributes": {
-      "isVegetarian": true
+    "dietary_attributes": {
+      "is_vegetarian": true
     },
-    "imageURL": "https://picsum.photos/600/400?random=3"
+    "image_url": "https://picsum.photos/600/400?random=3"
   },
   {
     "id": "D4E5F6G7-H8I9-J0K1-L2M3-N4O5P6Q7R8S9",
@@ -74,14 +74,14 @@
       "Chop vegetables into small cubes.",
       "Toss everything in a large bowl with olive oil and lemon."
     ],
-    "dietaryAttributes": {
-      "isVegetarian": true,
-      "isVegan": true,
-      "isGlutenFree": true,
-      "isSugarFree": true
+    "dietary_attributes": {
+      "is_vegetarian": true,
+      "is_vegan": true,
+      "is_gluten_free": true,
+      "is_sugar_free": true
     },
-    "imageURL": "https://picsum.photos/600/400?random=4",
-    "creatorId": "chef_001"
+    "image_url": "https://picsum.photos/600/400?random=4",
+    "creator_id": "chef_001"
   },
   {
     "id": "E5F6G7H8-I9J0-K1L2-M3N4-O5P6Q7R8S9T0",
@@ -98,13 +98,13 @@
       "Baste with melted butter and rosemary.",
       "Let rest for 5 minutes before slicing."
     ],
-    "dietaryAttributes": {
-      "isVegetarian": false,
-      "isVegan": false,
-      "isGlutenFree": true,
-      "isSugarFree": true
+    "dietary_attributes": {
+      "is_vegetarian": false,
+      "is_vegan": false,
+      "is_gluten_free": true,
+      "is_sugar_free": true
     },
-    "imageURL": "https://picsum.photos/600/400?random=5"
+    "image_url": "https://picsum.photos/600/400?random=5"
   },
   {
     "id": "F6G7H8I9-J0K1-L2M3-N4O5-P6Q7R8S9T0U1",
@@ -120,13 +120,13 @@
       "Add all ingredients into a blender.",
       "Blend on high until smooth."
     ],
-    "dietaryAttributes": {
-      "isVegetarian": true,
-      "isVegan": false,
-      "isGlutenFree": true,
-      "isSugarFree": false
+    "dietary_attributes": {
+      "is_vegetarian": true,
+      "is_vegan": false,
+      "is_gluten_free": true,
+      "is_sugar_free": false
     },
-    "imageURL": "https://picsum.photos/600/400?random=6"
+    "image_url": "https://picsum.photos/600/400?random=6"
   },
   {
     "id": "G7H8I9J0-K1L2-M3N4-O5P6-Q7R8S9T0U1V2",
@@ -139,13 +139,13 @@
       "Fry chicken and veggies.",
       "Add soy sauce and serve."
     ],
-    "dietaryAttributes": {
-      "isVegetarian": false,
-      "isVegan": false,
-      "isGlutenFree": false,
-      "isSugarFree": false
+    "dietary_attributes": {
+      "is_vegetarian": false,
+      "is_vegan": false,
+      "is_gluten_free": false,
+      "is_sugar_free": false
     },
-    "imageURL": "https://picsum.photos/600/400?random=7"
+    "image_url": "https://picsum.photos/600/400?random=7"
   },
   {
     "id": "H8I9J0K1-L2M3-N4O5-P6Q7-R8S9T0U1V2W3",
@@ -162,13 +162,13 @@
       "Blend with basil and vegetable broth.",
       "Simmer for 10 minutes."
     ],
-    "dietaryAttributes": {
-      "isVegetarian": true,
-      "isVegan": true,
-      "isGlutenFree": true,
-      "isSugarFree": true
+    "dietary_attributes": {
+      "is_vegetarian": true,
+      "is_vegan": true,
+      "is_gluten_free": true,
+      "is_sugar_free": true
     },
-    "imageURL": "https://picsum.photos/600/400?random=8"
+    "image_url": "https://picsum.photos/600/400?random=8"
   },
   {
     "id": "I9J0K1L2-M3N4-O5P6-Q7R8-S9T0U1V2W3X4",
@@ -185,13 +185,13 @@
       "Add rice and gradually pour in stock while stirring.",
       "Finish with parmesan cheese."
     ],
-    "dietaryAttributes": {
-      "isVegetarian": true,
-      "isVegan": false,
-      "isGlutenFree": true,
-      "isSugarFree": true
+    "dietary_attributes": {
+      "is_vegetarian": true,
+      "is_vegan": false,
+      "is_gluten_free": true,
+      "is_sugar_free": true
     },
-    "imageURL": "https://picsum.photos/600/400?random=9"
+    "image_url": "https://picsum.photos/600/400?random=9"
   },
   {
     "id": "J0K1L2M3-N4O5-P6Q7-R8S9-T0U1V2W3X4Y5",
@@ -208,13 +208,13 @@
       "Add taco seasoning and water.",
       "Fill shells and add toppings."
     ],
-    "dietaryAttributes": {
-      "isVegetarian": false,
-      "isVegan": false,
-      "isGlutenFree": false,
-      "isSugarFree": true
+    "dietary_attributes": {
+      "is_vegetarian": false,
+      "is_vegan": false,
+      "is_gluten_free": false,
+      "is_sugar_free": true
     },
-    "imageURL": "https://picsum.photos/600/400?random=10"
+    "image_url": "https://picsum.photos/600/400?random=10"
   },
   {
     "id": "K1L2M3N4-O5P6-Q7R8-S9T0-U1V2W3X4Y5Z6",
@@ -231,13 +231,13 @@
       "Fold in flour.",
       "Cook on a griddle until bubbles form."
     ],
-    "dietaryAttributes": {
-      "isVegetarian": true,
-      "isVegan": false,
-      "isGlutenFree": false,
-      "isSugarFree": false
+    "dietary_attributes": {
+      "is_vegetarian": true,
+      "is_vegan": false,
+      "is_gluten_free": false,
+      "is_sugar_free": false
     },
-    "imageURL": "https://picsum.photos/600/400?random=11"
+    "image_url": "https://picsum.photos/600/400?random=11"
   },
   {
     "id": "L2M3N4O5-P6Q7-R8S9-T0U1-V2W3X4Y5Z6A1",
@@ -249,11 +249,11 @@
       "Wash greens.",
       "Eat."
     ],
-    "dietaryAttributes": {
-      "isVegetarian": true,
-      "isVegan": true,
-      "isGlutenFree": true,
-      "isSugarFree": true
+    "dietary_attributes": {
+      "is_vegetarian": true,
+      "is_vegan": true,
+      "is_gluten_free": true,
+      "is_sugar_free": true
     }
   },
   {
@@ -270,13 +270,13 @@
       "Rinse lentils.",
       "Boil lentils with coconut milk and spices until soft."
     ],
-    "dietaryAttributes": {
-      "isVegetarian": true,
-      "isVegan": true,
-      "isGlutenFree": true,
-      "isSugarFree": true
+    "dietary_attributes": {
+      "is_vegetarian": true,
+      "is_vegan": true,
+      "is_gluten_free": true,
+      "is_sugar_free": true
     },
-    "imageURL": "https://picsum.photos/600/400?random=13"
+    "image_url": "https://picsum.photos/600/400?random=13"
   },
   {
     "id": "N4O5P6Q7-R8S9-T0U1-V2W3-X4Y5Z6A1B2C3",
@@ -293,13 +293,13 @@
       "Layer with sauce and cheese.",
       "Bake at 375F for 30 minutes."
     ],
-    "dietaryAttributes": {
-      "isVegetarian": true,
-      "isVegan": false,
-      "isGlutenFree": false,
-      "isSugarFree": false
+    "dietary_attributes": {
+      "is_vegetarian": true,
+      "is_vegan": false,
+      "is_gluten_free": false,
+      "is_sugar_free": false
     },
-    "imageURL": "https://picsum.photos/600/400?random=14"
+    "image_url": "https://picsum.photos/600/400?random=14"
   },
   {
     "id": "O5P6Q7R8-S9T0-U1V2-W3X4-Y5Z6A1B2C3D4",
@@ -316,13 +316,13 @@
       "Sauté shrimp in butter and garlic.",
       "Toss pasta into the pan with lemon juice."
     ],
-    "dietaryAttributes": {
-      "isVegetarian": false,
-      "isVegan": false,
-      "isGlutenFree": false,
-      "isSugarFree": true
+    "dietary_attributes": {
+      "is_vegetarian": false,
+      "is_vegan": false,
+      "is_gluten_free": false,
+      "is_sugar_free": true
     },
-    "imageURL": "https://picsum.photos/600/400?random=15"
+    "image_url": "https://picsum.photos/600/400?random=15"
   },
   {
     "id": "P6Q7R8S9-T0U1-V2W3-X4Y5-Z6A1B2C3D4E5",
@@ -339,13 +339,13 @@
       "Add broth and simmer.",
       "Top with bread and cheese, then broil."
     ],
-    "dietaryAttributes": {
-      "isVegetarian": false,
-      "isVegan": false,
-      "isGlutenFree": false,
-      "isSugarFree": false
+    "dietary_attributes": {
+      "is_vegetarian": false,
+      "is_vegan": false,
+      "is_gluten_free": false,
+      "is_sugar_free": false
     },
-    "imageURL": "https://picsum.photos/600/400?random=16"
+    "image_url": "https://picsum.photos/600/400?random=16"
   },
   {
     "id": "Q7R8S9T0-U1V2-W3X4-Y5Z6-A1B2C3D4E5F6",
@@ -360,13 +360,13 @@
       "Grill patty for 4 minutes per side.",
       "Assemble burger with lettuce and tomato."
     ],
-    "dietaryAttributes": {
-      "isVegetarian": true,
-      "isVegan": true,
-      "isGlutenFree": false,
-      "isSugarFree": true
+    "dietary_attributes": {
+      "is_vegetarian": true,
+      "is_vegan": true,
+      "is_gluten_free": false,
+      "is_sugar_free": true
     },
-    "imageURL": "https://picsum.photos/600/400?random=17"
+    "image_url": "https://picsum.photos/600/400?random=17"
   },
   {
     "id": "R8S9T0U1-V2W3-X4Y5-Z6A1-B2C3D4E5F6G7",
@@ -380,11 +380,11 @@
     "instructions": [
       "Layer yogurt and granola in a glass."
     ],
-    "dietaryAttributes": {
-      "isVegetarian": true,
-      "isVegan": false,
-      "isGlutenFree": false,
-      "isSugarFree": false
+    "dietary_attributes": {
+      "is_vegetarian": true,
+      "is_vegan": false,
+      "is_gluten_free": false,
+      "is_sugar_free": false
     }
   },
   {
@@ -400,13 +400,13 @@
       "Slow cook pork for 8 hours.",
       "Shred with forks and mix with sauce."
     ],
-    "dietaryAttributes": {
-      "isVegetarian": false,
-      "isVegan": false,
-      "isGlutenFree": true,
-      "isSugarFree": false
+    "dietary_attributes": {
+      "is_vegetarian": false,
+      "is_vegan": false,
+      "is_gluten_free": true,
+      "is_sugar_free": false
     },
-    "imageURL": "https://picsum.photos/600/400?random=19"
+    "image_url": "https://picsum.photos/600/400?random=19"
   },
   {
     "id": "T0U1V2W3-X4Y5-Z6A1-B2C3-D4E5F6G7H8I9",
@@ -421,13 +421,13 @@
       "Chop lettuce.",
       "Toss with dressing and top with croutons."
     ],
-    "dietaryAttributes": {
-      "isVegetarian": false,
-      "isVegan": false,
-      "isGlutenFree": false,
-      "isSugarFree": true
+    "dietary_attributes": {
+      "is_vegetarian": false,
+      "is_vegan": false,
+      "is_gluten_free": false,
+      "is_sugar_free": true
     },
-    "imageURL": "https://picsum.photos/600/400?random=20"
+    "image_url": "https://picsum.photos/600/400?random=20"
   },
   {
     "id": "U1V2W3X4-Y5Z6-A1B2-C3D4-E5F6G7H8I9J0",
@@ -442,13 +442,13 @@
       "Boil pasta.",
       "Stir in pesto."
     ],
-    "dietaryAttributes": {
-      "isVegetarian": true,
-      "isVegan": false,
-      "isGlutenFree": false,
-      "isSugarFree": true
+    "dietary_attributes": {
+      "is_vegetarian": true,
+      "is_vegan": false,
+      "is_gluten_free": false,
+      "is_sugar_free": true
     },
-    "imageURL": "https://picsum.photos/600/400?random=21"
+    "image_url": "https://picsum.photos/600/400?random=21"
   },
   {
     "id": "V2W3X4Y5-Z6A1-B2C3-D4E5-F6G7H8I9J0K1",
@@ -459,11 +459,11 @@
     "instructions": [
       "Chop fruit and mix."
     ],
-    "dietaryAttributes": {
-      "isVegetarian": true,
-      "isVegan": true,
-      "isGlutenFree": true,
-      "isSugarFree": false
+    "dietary_attributes": {
+      "is_vegetarian": true,
+      "is_vegan": true,
+      "is_gluten_free": true,
+      "is_sugar_free": false
     }
   },
   {
@@ -479,13 +479,13 @@
       "Fry wings until crispy.",
       "Toss in sauce."
     ],
-    "dietaryAttributes": {
-      "isVegetarian": false,
-      "isVegan": false,
-      "isGlutenFree": true,
-      "isSugarFree": true
+    "dietary_attributes": {
+      "is_vegetarian": false,
+      "is_vegan": false,
+      "is_gluten_free": true,
+      "is_sugar_free": true
     },
-    "imageURL": "https://picsum.photos/600/400?random=23"
+    "image_url": "https://picsum.photos/600/400?random=23"
   },
   {
     "id": "X4Y5Z6A1-B2C3-D4E5-F6G7-H8I9J0K1L2M3",
@@ -500,13 +500,13 @@
       "Grill fish.",
       "Assemble in tortillas."
     ],
-    "dietaryAttributes": {
-      "isVegetarian": false,
-      "isVegan": false,
-      "isGlutenFree": false,
-      "isSugarFree": true
+    "dietary_attributes": {
+      "is_vegetarian": false,
+      "is_vegan": false,
+      "is_gluten_free": false,
+      "is_sugar_free": true
     },
-    "imageURL": "https://picsum.photos/600/400?random=24"
+    "image_url": "https://picsum.photos/600/400?random=24"
   },
   {
     "id": "Y5Z6A1B2-C3D4-E5F6-G7H8-I9J0K1L2M3N4",
@@ -519,13 +519,13 @@
     "instructions": [
       "Microwave with milk for 2 minutes."
     ],
-    "dietaryAttributes": {
-      "isVegetarian": true,
-      "isVegan": true,
-      "isGlutenFree": false,
-      "isSugarFree": true
+    "dietary_attributes": {
+      "is_vegetarian": true,
+      "is_vegan": true,
+      "is_gluten_free": false,
+      "is_sugar_free": true
     },
-    "imageURL": "https://picsum.photos/600/400?random=25"
+    "image_url": "https://picsum.photos/600/400?random=25"
   },
   {
     "id": "Z6A1B2C3-D4E5-F6G7-H8I9-J0K1L2M3N4O5",
@@ -539,13 +539,13 @@
     "instructions": [
       "Simmer veggies in tomato sauce."
     ],
-    "dietaryAttributes": {
-      "isVegetarian": true,
-      "isVegan": true,
-      "isGlutenFree": true,
-      "isSugarFree": true
+    "dietary_attributes": {
+      "is_vegetarian": true,
+      "is_vegan": true,
+      "is_gluten_free": true,
+      "is_sugar_free": true
     },
-    "imageURL": "https://picsum.photos/600/400?random=26"
+    "image_url": "https://picsum.photos/600/400?random=26"
   },
   {
     "id": "A1B2C3D4-B2C3-D4E5-F6G7-H8I9J0K1L2M3",
@@ -558,13 +558,13 @@
     "instructions": [
       "Bake until brown."
     ],
-    "dietaryAttributes": {
-      "isVegetarian": true,
-      "isVegan": false,
-      "isGlutenFree": false,
-      "isSugarFree": false
+    "dietary_attributes": {
+      "is_vegetarian": true,
+      "is_vegan": false,
+      "is_gluten_free": false,
+      "is_sugar_free": false
     },
-    "imageURL": "https://picsum.photos/600/400?random=27"
+    "image_url": "https://picsum.photos/600/400?random=27"
   },
   {
     "id": "B2C3D4E5-C3D4-E5F6-G7H8-I9J0K1L2M3N4",
@@ -573,7 +573,7 @@
     "servings": 1,
     "ingredients": [],
     "instructions": [],
-    "imageURL": "https://picsum.photos/600/400?random=28"
+    "image_url": "https://picsum.photos/600/400?random=28"
   },
   {
     "id": "C3D4E5F6-D4E5-F6G7-H8I9-J0K1L2M3N4O5",
@@ -586,13 +586,13 @@
     "instructions": [
       "Slice and serve."
     ],
-    "dietaryAttributes": {
-      "isVegetarian": true,
-      "isVegan": false,
-      "isGlutenFree": true,
-      "isSugarFree": true
+    "dietary_attributes": {
+      "is_vegetarian": true,
+      "is_vegan": false,
+      "is_gluten_free": true,
+      "is_sugar_free": true
     },
-    "imageURL": "https://picsum.photos/600/400?random=29"
+    "image_url": "https://picsum.photos/600/400?random=29"
   },
   {
     "id": "D4E5F6G7-E5F6-G7H8-I9J0-K1L2M3N4O5P6",
@@ -605,12 +605,12 @@
     "instructions": [
       "Blend all."
     ],
-    "dietaryAttributes": {
-      "isVegetarian": true,
-      "isVegan": true,
-      "isGlutenFree": true,
-      "isSugarFree": true
+    "dietary_attributes": {
+      "is_vegetarian": true,
+      "is_vegan": true,
+      "is_gluten_free": true,
+      "is_sugar_free": true
     },
-    "imageURL": "https://picsum.photos/600/400?random=30"
+    "image_url": "https://picsum.photos/600/400?random=30"
   }
 ]

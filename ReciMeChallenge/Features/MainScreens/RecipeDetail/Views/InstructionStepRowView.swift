@@ -12,7 +12,7 @@ struct InstructionStepRowView: View {
     let text: String
     
     var body: some View {
-        HStack(alignment: .top, spacing: 16) {
+        HStack(alignment: .center, spacing: 16) {
             Text("\(index + 1)")
                 .font(.title3.bold())
                 .foregroundColor(.orange)

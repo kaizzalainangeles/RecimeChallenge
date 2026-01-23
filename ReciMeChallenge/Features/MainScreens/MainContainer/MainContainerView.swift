@@ -64,6 +64,7 @@ struct MainContainerView: View {
                     }
                     .tag(Tab.profile)
                 }
+                .defaultAdaptableTabBarPlacement(.tabBar)
                 .tint(.orange) // Sets the active tab color to match ReciMe theme
                 
                 FloatingAddButton {

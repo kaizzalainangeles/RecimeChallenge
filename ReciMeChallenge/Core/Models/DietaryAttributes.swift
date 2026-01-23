@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 
+/// Represents the dietary preferences and restrictions for a recipe.
 struct DietaryAttributes: Codable, Hashable {
     let isVegetarian: Bool?
     let isVegan: Bool?
@@ -33,6 +34,7 @@ struct DietaryAttributes: Codable, Hashable {
 }
 
 extension DietaryAttributes {
+    /// Used to display dietary labels in the app
     struct DietTag: Identifiable {
         let id = UUID()
         let label: String
@@ -40,6 +42,7 @@ extension DietaryAttributes {
         let color: Color
     }
 
+    /// Computes a list of tags to display based on which attributes are set to true.
     var activeTags: [DietTag] {
         var tags = [DietTag]()
         if isVegetarian == true { tags.append(DietTag(label: "Vegetarian", icon: "leaf.fill", color: .green)) }

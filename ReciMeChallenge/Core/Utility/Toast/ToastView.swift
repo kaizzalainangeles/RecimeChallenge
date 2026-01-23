@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// The visual representation of a toast message, styled as a floating capsule
 struct ToastView: View {
     var style: ToastStyle
     var message: String
@@ -18,7 +19,7 @@ struct ToastView: View {
                 .font(.system(size: 14, weight: .bold))
                 .foregroundColor(.white)
                 .frame(width: 28, height: 28)
-                .background(style.color.gradient) // Uses modern SwiftUI gradients
+                .background(style.color.gradient)
                 .clipShape(Circle())
             
             Text(message)

@@ -14,8 +14,7 @@ struct MyRecipesView: View {
     @State private var showDeleteConfirmation = false
 
     private let columns = [
-        GridItem(.flexible(), spacing: 16),
-        GridItem(.flexible(), spacing: 16)
+        GridItem(.adaptive(minimum: 170, maximum: .infinity), spacing: 16)
     ]
     
     init(recipeRepository: RecipeRepositoryProtocol, authService: AuthServiceProtocol, toastManager: ToastManager) {
@@ -109,6 +108,7 @@ struct MyRecipesView: View {
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 40)
         }
+        .frame(maxWidth: .infinity, alignment: .center)
     }
 }
 

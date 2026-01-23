@@ -32,7 +32,7 @@ struct RecipeCardView: View {
             
             // 2. INFO SECTION
             VStack(alignment: .leading, spacing: 4) {
-                HStack(alignment: .top) {
+                HStack(alignment: .center) {
                     Text(recipe.title)
                         .font(titleFont)
                         .lineLimit(1)
@@ -42,7 +42,6 @@ struct RecipeCardView: View {
                         Image(systemName: "leaf.fill")
                             .foregroundColor(.green)
                             .font(.subheadline)
-                            .padding(.top, 4)
                     }
                 }
                 
