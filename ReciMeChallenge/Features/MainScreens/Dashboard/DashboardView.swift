@@ -16,7 +16,7 @@ struct RecipeDashboardView: View {
     @StateObject private var viewModel: DashboardViewModel
     @Binding var selectedTab: Tab
     
-    init(repository: RecipeRepository, authService: AuthService, toastManager: ToastManager, selectedTab: Binding<Tab>) {
+    init(repository: RecipeRepositoryProtocol, authService: AuthServiceProtocol, toastManager: ToastManager, selectedTab: Binding<Tab>) {
         _viewModel = StateObject(wrappedValue: DashboardViewModel(
             repository: repository,
             authService: authService,
@@ -27,34 +27,51 @@ struct RecipeDashboardView: View {
     
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack(alignment: .leading, spacing: 25) {
-                    // 1. GREETING
-                    headerSection
-                    
-                    // 2. FEATURED SECTION (Randomly picked by VM)
-                    SliderView(
-                        title: "Featured",
-                        recipes: viewModel.featuredRecipes,
-                        recipeGroupType: .featured,
-                        onSeeMorePressed: { selectedTab = .search } // Switch to Search Tab
-                    )
-                    .padding(.bottom)
-                    
-                    // 3. OWNED RECIPES SECTION (Randomly picked by VM)
-                    SliderView(
-                        title: "My Recipe's",
-                        recipes: viewModel.ownedRecipes,
-                        recipeGroupType: .owned,
-                        onSeeMorePressed: { selectedTab = .recipes } // Switch to My Recipes Tab
-                    )
-                    .padding(.vertical)
+            ZStack(alignment: .top) {
+                UpperGradientView()
+                
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 25) {
+                        // 1. GREETING
+                        headerSection
+                        
+                        // 2. FEATURED SECTION (Randomly picked by VM)
+                        SliderView(
+                            title: "Featured",
+                            recipes: viewModel.featuredRecipes,
+                            recipeGroupType: .featured,
+                            onSeeMorePressed: { selectedTab = .search } // Switch to Search Tab
+                        )
+                        .padding(.bottom)
+                        
+                        // 3. OWNED RECIPES SECTION (Randomly picked by VM)
+                        SliderView(
+                            title: "My Recipe's",
+                            recipes: viewModel.ownedRecipes,
+                            recipeGroupType: .owned,
+                            onSeeMorePressed: { selectedTab = .recipes } // Switch to My Recipes Tab
+                        )
+                        .padding(.vertical)
+                    }
+                    .padding(.top)
+                    .padding(.bottom, 100)
                 }
-                .padding(.top)
-                .padding(.bottom, 100)
+                .refreshable {
+                    await viewModel.refreshData()
+                }
             }
             .background(Color(.systemGroupedBackground))
             .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: viewModel.onLogoButtonTapped) {
+                        Image("SplashLogo")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 40, height: 40)
+                            .foregroundStyle(.orange.gradient)
+                    }
+                }
+                
                 ToolbarItem(placement: .navigationBarTrailing) {
                     // This is for display purpose only
                     Button(action: viewModel.onNotificationBellTapped) {
@@ -63,28 +80,30 @@ struct RecipeDashboardView: View {
                     .badge(1)
                 }
             }
+            .toolbarBackground(.hidden, for: .navigationBar)
             .task {
                 await viewModel.refreshData()
             }
         }
     }
     
-    // Sub-views for better organization
     private var headerSection: some View {
         VStack(alignment: .leading, spacing: 4) {
             Text("Hello, Chef! 👋")
                 .font(.title2)
-                .foregroundColor(.secondary)
+                .fontWeight(.bold)
+                .foregroundColor(.orange)
+            
             Text("Discover Recipes")
-                .font(.largeTitle.bold())
+                .font(.system(.largeTitle, design: .rounded).bold())
         }
         .padding(.horizontal)
     }
 }
 
 #Preview {
-    let previewPersistence = RecipePersistenceService()
-    let previewNetwork = MockRecipeService()
+    let previewPersistence = RecipeCoreDataStorage()
+    let previewNetwork = FetchRecipeService()
     let previewRepo = RecipeRepository(
         recipeService: previewNetwork,
         persistence: previewPersistence

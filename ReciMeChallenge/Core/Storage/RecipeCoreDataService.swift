@@ -8,7 +8,13 @@
 import Foundation
 import CoreData
 
-final class RecipePersistenceService {
+protocol RecipePersistenceService{
+    func saveRecipes(_ recipes: [Recipe])
+    func fetchRecipes() -> [Recipe]
+    func deleteRecipe(id: String)
+}
+
+final class RecipeCoreDataStorage: RecipePersistenceService {
     let container: NSPersistentContainer
     
     init() {
@@ -101,13 +107,5 @@ final class RecipePersistenceService {
             
             save()
         }
-    }
-    
-    func clearAllRecipes() {
-        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = RecipeEntity.fetchRequest()
-        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-        _ = try? context.execute(deleteRequest)
-        
-        save()
     }
 }

@@ -19,10 +19,10 @@ class ExploreViewModel: ObservableObject {
     private var allRecipes: [Recipe] = []
     private var currentPage = 1
     private let pageSize = 10
-    private let repository: RecipeRepository
+    private let repository: RecipeRepositoryProtocol
     private var cancellables = Set<AnyCancellable>()
 
-    init(repository: RecipeRepository) {
+    init(repository: RecipeRepositoryProtocol) {
         self.repository = repository
         
         repository.recipesPublisher
@@ -56,6 +56,9 @@ class ExploreViewModel: ObservableObject {
             
             // 2. Dietary Filters
             let matchesVegetarian = !criteria.isVegetarian || (recipe.dietaryAttributes.isVegetarian ?? false)
+            let matchesVegan = !criteria.isVegan || (recipe.dietaryAttributes.isVegan ?? false)
+            let matchesGlutenFree = !criteria.isGlutenFree || (recipe.dietaryAttributes.isGlutenFree ?? false)
+            let matchesSugarFree = !criteria.isSugarFree || (recipe.dietaryAttributes.isSugarFree ?? false)
             
             // 3. Servings Filter (Requirement)
             let matchesServings = recipe.servings >= criteria.minServings
@@ -70,7 +73,7 @@ class ExploreViewModel: ObservableObject {
             
             let matchesExcludedIngredients = criteria.excludedIngredients.isDisjoint(with: Set(recipeIngredientsNames))
 
-            return matchesSearch && matchesVegetarian && matchesServings && matchesIncludedIngredients && matchesExcludedIngredients
+            return matchesSearch && matchesVegetarian && matchesVegan && matchesGlutenFree && matchesSugarFree && matchesServings && matchesIncludedIngredients && matchesExcludedIngredients
         }
 
         let limit = min(currentPage * pageSize, results.count)
@@ -98,6 +101,9 @@ class ExploreViewModel: ObservableObject {
 
 struct RecipeFilterCriteria: Equatable {
     var isVegetarian: Bool = false
+    var isVegan: Bool = false
+    var isGlutenFree: Bool = false
+    var isSugarFree: Bool = false
     var minServings: Int = 1
     var includedIngredients: Set<String> = []
     var excludedIngredients: Set<String> = []

@@ -233,8 +233,8 @@ private extension RecipeCreateView {
 }
 
 #Preview {
-    let previewPersistence = RecipePersistenceService()
-    let previewNetwork = MockRecipeService()
+    let previewPersistence = RecipeCoreDataStorage()
+    let previewNetwork = FetchRecipeService()
     
     let previewRepo = RecipeRepository(
         recipeService: previewNetwork,

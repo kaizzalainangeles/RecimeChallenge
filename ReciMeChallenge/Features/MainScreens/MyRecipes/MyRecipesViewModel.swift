@@ -13,13 +13,13 @@ class MyRecipesViewModel: ObservableObject {
     @Published var myRecipes: [Recipe] = []
     @Published var searchText: String = ""
     
-    private let recipeRepository: RecipeRepository
-    private let authService: AuthService
+    private let recipeRepository: RecipeRepositoryProtocol
+    private let authService: AuthServiceProtocol
     private let toastManager: ToastManager
     
     private var cancellables = Set<AnyCancellable>()
     
-    init(recipeRepository: RecipeRepository, authService: AuthService, toastManager: ToastManager) {
+    init(recipeRepository: RecipeRepositoryProtocol, authService: AuthServiceProtocol, toastManager: ToastManager) {
         self.recipeRepository = recipeRepository
         self.authService = authService
         self.toastManager = toastManager
@@ -38,6 +38,10 @@ class MyRecipesViewModel: ObservableObject {
         } else {
             return myRecipes.filter { $0.title.localizedCaseInsensitiveContains(searchText) }
         }
+    }
+    
+    func refreshData() async {
+        await recipeRepository.sync()
     }
     
     func deleteRecipe(_ recipe: Recipe) {

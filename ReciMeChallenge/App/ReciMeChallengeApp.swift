@@ -15,8 +15,8 @@ struct ReciMeChallengeApp: App {
     @StateObject private var authService = AuthService()
     
     init() {
-        let persistenceService = RecipePersistenceService()
-        let networkService = MockRecipeService()
+        let persistenceService = RecipeCoreDataStorage()
+        let networkService = FetchRecipeService()
         
         // Initialize repository with both services
         let repo = RecipeRepository(

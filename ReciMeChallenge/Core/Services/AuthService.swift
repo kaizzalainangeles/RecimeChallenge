@@ -8,8 +8,13 @@
 import Foundation
 import Combine
 
+protocol AuthServiceProtocol {
+    var currentUserId: String { get }
+    var currentUser: User { get }
+}
+
 // A mock service to simulate user data fetching and storing
-class AuthService: ObservableObject {
+class AuthService: ObservableObject, AuthServiceProtocol {
     var currentUserId: String
     var currentUser: User
     

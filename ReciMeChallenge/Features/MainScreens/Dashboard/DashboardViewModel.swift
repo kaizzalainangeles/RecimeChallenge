@@ -15,13 +15,13 @@ class DashboardViewModel: ObservableObject {
     @Published var allRecipes: [Recipe] = []
     @Published var searchText: String = ""
     
-    private let repository: RecipeRepository
-    private let authService: AuthService
+    private let repository: RecipeRepositoryProtocol
+    private let authService: AuthServiceProtocol
     private let toastManager: ToastManager
     
     private var cancellables = Set<AnyCancellable>()
     
-    init(repository: RecipeRepository, authService: AuthService, toastManager: ToastManager) {
+    init(repository: RecipeRepositoryProtocol, authService: AuthServiceProtocol, toastManager: ToastManager) {
         self.repository = repository
         self.authService = authService
         self.toastManager = toastManager
@@ -57,6 +57,10 @@ class DashboardViewModel: ObservableObject {
     
     func refreshData() async {
         await repository.sync()
+    }
+    
+    func onLogoButtonTapped() {
+        toastManager.show(style: .success, message: "Logo tapped!")
     }
     
     func onNotificationBellTapped() {

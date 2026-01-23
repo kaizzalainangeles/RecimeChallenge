@@ -13,13 +13,13 @@ struct ProfileView: View {
     @Binding var selectedTab: Tab
     
     init(
-        repository: RecipeRepository,
-        authService: AuthService,
+        repository: RecipeRepositoryProtocol,
+        authService: AuthServiceProtocol,
         toastManager: ToastManager,
         selectedTab: Binding<Tab>)
     {
         _viewModel = StateObject(wrappedValue: ProfileViewModel(
-            repository: repository,
+            recipeRepository: repository,
             authService: authService,
             toastManager: toastManager
         ))
@@ -89,8 +89,8 @@ struct ProfileView: View {
 }
 
 #Preview {
-    let previewPersistence = RecipePersistenceService()
-    let previewNetwork = MockRecipeService()
+    let previewPersistence = RecipeCoreDataStorage()
+    let previewNetwork = FetchRecipeService()
     let previewRepo = RecipeRepository(
         recipeService: previewNetwork,
         persistence: previewPersistence

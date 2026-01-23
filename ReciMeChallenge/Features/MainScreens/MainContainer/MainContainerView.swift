@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct MainContainerView: View {
-    let repository: RecipeRepository
-    let authService: AuthService
+    let repository: RecipeRepositoryProtocol
+    let authService: AuthServiceProtocol
     
     @StateObject private var toastManager = ToastManager()
     
@@ -88,8 +88,8 @@ struct MainContainerView: View {
 }
 
 #Preview {
-    let previewPersistence = RecipePersistenceService()
-    let previewNetwork = MockRecipeService()
+    let previewPersistence = RecipeCoreDataStorage()
+    let previewNetwork = FetchRecipeService()
     let previewAuth = AuthService()
     let previewRepo = RecipeRepository(
         recipeService: previewNetwork,

@@ -18,7 +18,7 @@ struct MyRecipesView: View {
         GridItem(.flexible(), spacing: 16)
     ]
     
-    init(repository: RecipeRepository, authService: AuthService, toastManager: ToastManager) {
+    init(repository: RecipeRepositoryProtocol, authService: AuthServiceProtocol, toastManager: ToastManager) {
         _viewModel = StateObject(wrappedValue: MyRecipesViewModel(
             recipeRepository: repository,
             authService: authService,
@@ -28,55 +28,61 @@ struct MyRecipesView: View {
     
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack(alignment: .leading, spacing: 20) {
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Text("\(viewModel.myRecipes.count)")
-                                .font(.title.bold())
-                            Text("Total Recipes")
-                                .font(.caption)
-                                .foregroundColor(.secondary)
+            ZStack(alignment: .top) {
+                UpperGradientView()
+                
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 20) {
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Text("\(viewModel.myRecipes.count)")
+                                    .font(.title.bold())
+                                Text("Total Recipes")
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                            }
+                            Spacer()
+                            Image(systemName: "fork.knife.circle.fill")
+                                .resizable()
+                                .frame(width: 40, height: 40)
+                                .foregroundColor(.orange.opacity(0.8))
                         }
-                        Spacer()
-                        Image(systemName: "fork.knife.circle.fill")
-                            .resizable()
-                            .frame(width: 40, height: 40)
-                            .foregroundColor(.orange.opacity(0.8))
-                    }
-                    .padding()
-                    .background(Color(.secondarySystemGroupedBackground))
-                    .cornerRadius(15)
-                    .padding(.horizontal)
-
-                    if viewModel.myRecipes.isEmpty {
-                        emptyStateView
-                    } else {
-                        LazyVGrid(columns: columns, spacing: 16) {
-                            ForEach(viewModel.filteredRecipes) { recipe in
-                                NavigationLink(destination: RecipeDetailView(recipe: recipe)) {
-                                    RecipeCardView(recipe: recipe, style: .minimal(context: .myRecipes))
-                                        .contentShape(Rectangle())
-                                }
-                                .buttonStyle(PlainButtonStyle())
-                                .contextMenu {
-                                    Button(role: .destructive) {
-                                        recipeToDelete = recipe
-                                        showDeleteConfirmation = true
-                                    } label: {
-                                        Label("Delete Recipe", systemImage: "trash")
+                        .padding()
+                        .background(Color(.secondarySystemGroupedBackground))
+                        .cornerRadius(15)
+                        .padding(.horizontal)
+                        
+                        if viewModel.myRecipes.isEmpty {
+                            emptyStateView
+                        } else {
+                            LazyVGrid(columns: columns, spacing: 16) {
+                                ForEach(viewModel.filteredRecipes) { recipe in
+                                    NavigationLink(destination: RecipeDetailView(recipe: recipe)) {
+                                        RecipeCardView(recipe: recipe, style: .minimal(context: .myRecipes))
+                                            .contentShape(Rectangle())
+                                    }
+                                    .buttonStyle(PlainButtonStyle())
+                                    .contextMenu {
+                                        Button(role: .destructive) {
+                                            recipeToDelete = recipe
+                                            showDeleteConfirmation = true
+                                        } label: {
+                                            Label("Delete Recipe", systemImage: "trash")
+                                        }
                                     }
                                 }
                             }
+                            .padding(.horizontal)
                         }
-                        .padding(.horizontal)
                     }
+                    .padding(.vertical)
                 }
-                .padding(.vertical)
+                .refreshable {
+                    await viewModel.refreshData()
+                }
             }
             .background(Color(.systemGroupedBackground))
             .navigationTitle("My Recipes")
-//            .searchable(text: $viewModel.searchText, prompt: "Search your collection")
             .alert("Delete Recipe?", isPresented: $showDeleteConfirmation, presenting: recipeToDelete) { recipe in
                 Button("Delete", role: .destructive) {
                     withAnimation {
@@ -107,8 +113,8 @@ struct MyRecipesView: View {
 }
 
 #Preview {
-    let previewPersistence = RecipePersistenceService()
-    let previewNetwork = MockRecipeService()
+    let previewPersistence = RecipeCoreDataStorage()
+    let previewNetwork = FetchRecipeService()
     
     let previewRepo = RecipeRepository(
         recipeService: previewNetwork,

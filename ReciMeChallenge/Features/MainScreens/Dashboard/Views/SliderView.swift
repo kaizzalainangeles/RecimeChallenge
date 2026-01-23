@@ -78,7 +78,7 @@ struct SliderView: View {
                 Text(getNoRecipeMessage())
                     .font(.headline)
                 
-                Text("Try searching for something new to cook today!")
+                Text(getNoRecipeAddedMessage())
                     .font(.subheadline)
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)

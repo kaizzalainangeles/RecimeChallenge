@@ -26,11 +26,11 @@ class RecipeCreateViewModel: ObservableObject {
     @Published var selectedDietary: Set<DietaryFilter> = []
     @Published var selectedImageData: Data? = nil
 
-    private let recipeRepository: RecipeRepository
-    private let authService: AuthService
+    private let recipeRepository: RecipeRepositoryProtocol
+    private let authService: AuthServiceProtocol
     private let toastManager: ToastManager
 
-    init(recipeRepository: RecipeRepository, authService: AuthService, toastManager: ToastManager) {
+    init(recipeRepository: RecipeRepositoryProtocol, authService: AuthServiceProtocol, toastManager: ToastManager) {
         self.recipeRepository = recipeRepository
         self.authService = authService
         self.toastManager = toastManager

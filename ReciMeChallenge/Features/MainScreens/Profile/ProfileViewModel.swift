@@ -9,27 +9,25 @@ import Foundation
 import Combine
 
 @MainActor
-class ProfileViewModel: ObservableObject {    
-    @Published var recipeCount: Int = 0
-    
+class ProfileViewModel: ObservableObject {
     // The UI associated to this is for display purpose only
     @Published var notificationsEnabled: Bool = true
+    
+    @Published var recipeCount: Int = 0
 
     let currentUser: User
 
-    private let repository: RecipeRepository
-    private let authService: AuthService
+    private let recipeRepository: RecipeRepositoryProtocol
     private let toastManager: ToastManager
 
-    init(repository: RecipeRepository, authService: AuthService, toastManager: ToastManager) {
-        self.repository = repository
-        self.authService = authService
+    init(recipeRepository: RecipeRepositoryProtocol, authService: AuthServiceProtocol, toastManager: ToastManager) {
+        self.recipeRepository = recipeRepository
         self.toastManager = toastManager
         
         self.currentUser = authService.currentUser
         
         // Observe the repository to keep the recipe count in sync
-        repository.recipesPublisher
+        recipeRepository.recipesPublisher
             .map { recipes in
                 recipes.filter { $0.creatorId != nil }.count
             }

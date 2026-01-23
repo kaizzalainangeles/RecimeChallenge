@@ -8,11 +8,16 @@
 import Foundation
 import Combine
 
+/// Protocol to define the contract for recipe data access
+///
+/// Implementations of this protocol are responsible for providing access to recipe data,
+/// whether from a local database, remote API, or other sources.
 protocol RecipeRepositoryProtocol {
     var recipesPublisher: AnyPublisher<[Recipe], Never> { get }
     func sync() async
-    func addRecipe(_ recipe: Recipe) async
+    func addRecipe(_ recipe: Recipe)
     func deleteRecipe(_ recipe: Recipe)
+    func saveImageToDisk(data: Data) -> URL?
 }
 
 @MainActor

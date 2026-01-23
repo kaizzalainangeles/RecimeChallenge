@@ -7,6 +7,12 @@
 
 import Foundation
 
+/// A model representing a cooking recipe
+///
+/// Recipe objects contain all the information needed to display and manage cooking recipes,
+/// including ingredients, instructions, and dietary information.
+///
+/// Recipe objects are both `Identifiable` (for SwiftUI lists) and `Codable` (for JSON parsing).
 struct Recipe: Identifiable, Codable, Hashable {
     let id: String
     let title: String

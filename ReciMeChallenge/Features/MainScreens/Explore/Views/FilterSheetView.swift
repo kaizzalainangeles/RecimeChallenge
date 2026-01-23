@@ -20,6 +20,15 @@ struct FilterSheetView: View {
                 Section("Dietary Preferences") {
                     Toggle("Vegetarian Only", isOn: $viewModel.criteria.isVegetarian)
                         .tint(.orange)
+                    
+                    Toggle("Vegan Only", isOn: $viewModel.criteria.isVegan)
+                        .tint(.orange)
+                    
+                    Toggle("Gluten-free Only", isOn: $viewModel.criteria.isGlutenFree)
+                        .tint(.orange)
+                    
+                    Toggle("Sugar-free Only", isOn: $viewModel.criteria.isSugarFree)
+                        .tint(.orange)
                 }
                 
                 Section("Minimum Servings") {
@@ -85,8 +94,8 @@ struct FilterSheetView: View {
 }
 
 #Preview {
-    let previewPersistence = RecipePersistenceService()
-    let previewNetwork = MockRecipeService()
+    let previewPersistence = RecipeCoreDataStorage()
+    let previewNetwork = FetchRecipeService()
     
     let previewRepo = RecipeRepository(
         recipeService: previewNetwork,

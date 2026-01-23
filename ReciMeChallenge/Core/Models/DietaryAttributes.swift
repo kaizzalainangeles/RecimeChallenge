@@ -44,7 +44,7 @@ extension DietaryAttributes {
         var tags = [DietTag]()
         if isVegetarian == true { tags.append(DietTag(label: "Vegetarian", icon: "leaf.fill", color: .green)) }
         if isVegan == true { tags.append(DietTag(label: "Vegan", icon: "carrot.fill", color: .green)) }
-        if isGlutenFree == true { tags.append(DietTag(label: "Gluten-Free", icon: "wheat", color: .orange)) }
+        if isGlutenFree == true { tags.append(DietTag(label: "Gluten-Free", icon: "oval.portrait.lefthalf.filled", color: .orange)) }
         if isSugarFree == true { tags.append(DietTag(label: "Sugar-Free", icon: "bubbles.and.sparkles.fill", color: .blue)) }
         return tags
     }
