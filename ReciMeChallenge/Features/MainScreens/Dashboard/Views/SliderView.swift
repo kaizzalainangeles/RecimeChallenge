@@ -24,7 +24,7 @@ struct SliderView: View {
                     HStack(spacing: 16) {
                         ForEach(recipes) { recipe in
                             NavigationLink(destination: RecipeDetailView(recipe: recipe)) {
-                                RecipeCard(recipe: recipe)
+                                RecipeCardView(recipe: recipe)
                                     .frame(width: 300)
                             }
                             .buttonStyle(PlainButtonStyle())

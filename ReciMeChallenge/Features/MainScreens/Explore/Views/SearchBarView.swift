@@ -9,7 +9,6 @@ import SwiftUI
 
 struct SearchBarView: View {
     @Binding var searchText: String
-    var shouldFocusOnAppear: Bool = false
     var onFilterTap: () -> Void
     
     @FocusState private var isFocused: Bool
@@ -20,7 +19,6 @@ struct SearchBarView: View {
                 .foregroundColor(.gray)
             
             TextField("Search recipes...", text: $searchText)
-                .focused($isFocused)
             
             Button(action: onFilterTap) {
                 Image(systemName: "slider.horizontal.3")
@@ -31,11 +29,6 @@ struct SearchBarView: View {
         .background(RoundedRectangle(cornerRadius: 15).fill(Color(.systemBackground)))
         .shadow(color: .black.opacity(0.05), radius: 8, y: 4)
         .padding(.horizontal)
-        .onAppear {
-            if shouldFocusOnAppear {
-                isFocused = true
-            }
-        }
     }
 }
 

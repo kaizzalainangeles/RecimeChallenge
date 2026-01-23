@@ -1,0 +1,97 @@
+//
+//  RecipeCard2View.swift
+//  ReciMeChallenge
+//
+//  Created by Kaizz Alain Benipayo Angeles on 1/23/26.
+//
+
+import SwiftUI
+
+enum CardStyle: Equatable {
+    case minimal(context: MinimalContext)    // For Grids (Explore and MyRecipes)
+    case wide       // For Horizontal scrolling (Dashboard)
+    
+    enum MinimalContext {
+        case explore    // Show description
+        case myRecipes  // Show ingredient count
+    }
+}
+
+struct RecipeCardView: View {
+    let recipe: Recipe
+    let style: CardStyle
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            // 1. IMAGE SECTION
+            RecipeImage(recipe: recipe)
+                .frame(height: imageSize)
+                .frame(maxWidth: .infinity)
+                .background(Color.gray.opacity(0.1))
+                .clipped()
+            
+            // 2. INFO SECTION
+            VStack(alignment: .leading, spacing: 4) {
+                HStack(alignment: .top) {
+                    Text(recipe.title)
+                        .font(titleFont)
+                        .lineLimit(1)
+                    
+                    if style == .wide && recipe.dietaryAttributes.isVegetarian == true {
+                        Spacer()
+                        Image(systemName: "leaf.fill")
+                            .foregroundColor(.green)
+                            .font(.caption)
+                    }
+                }
+                
+                Text(secondaryText)
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                    .lineLimit(style == .wide ? 2 : 1)
+            }
+            .padding(style == .wide ? 16 : 8)
+        }
+        .background(Color(.secondarySystemGroupedBackground))
+        .cornerRadius(cornerRadius)
+        .shadow(color: .black.opacity(0.08), radius: 8, x: 0, y: 4)
+    }
+    
+    // MARK: - Dynamic Properties based on Style
+    
+    private var imageSize: CGFloat {
+        switch style {
+        case .minimal:
+            return 120
+        case .wide:
+            return 200
+        }
+    }
+    
+    private var titleFont: Font {
+        switch style {
+        case .wide:
+            return .title3.bold()
+        default:
+            return .subheadline.bold()
+        }
+    }
+    
+    private var secondaryText: String {
+        switch style {
+        case .wide:
+            return recipe.description
+        case .minimal(let context):
+            switch context {
+            case .explore:
+                return recipe.description
+            case .myRecipes:
+                return "\(recipe.ingredients.count) Ingredients"
+            }
+        }
+    }
+    
+    private var cornerRadius: CGFloat {
+        style == .wide ? 20 : 15
+    }
+}
