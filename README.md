@@ -198,7 +198,7 @@ struct DietaryAttributes: Codable, Hashable {
 
 2. **Authentication**: The app currently lacks user authentication capabilities.
 
-3 **Sharing**: No functionality for sharing recipes with other users.
+3. **Sharing**: No functionality for sharing recipes with other users.
 
 4. **Advanced Filtering**: Limited filtering capabilities beyond basic dietary attributes.
 
