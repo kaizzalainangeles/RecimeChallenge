@@ -10,10 +10,10 @@ import CoreData
 
 @main
 struct ReciMeChallengeApp: App {
-    // 1. Initialize the services (StateObjects keep them alive for the app's lifetime)
+    // Initialize the services (StateObjects keep them alive for the app's lifetime)
     @StateObject private var repository: RecipeRepository
-
-    // We use a 'lazy' approach or initialize in the init to ensure persistence is ready
+    @StateObject private var authService = AuthService()
+    
     init() {
         let persistenceService = RecipePersistenceService()
         let networkService = MockRecipeService()
@@ -29,7 +29,7 @@ struct ReciMeChallengeApp: App {
 
     var body: some Scene {
         WindowGroup {
-            MainContainerView(repository: repository)
+            MainContainerView(repository: repository, authService: authService)
         }
     }
 }

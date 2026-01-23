@@ -9,9 +9,13 @@ import SwiftUI
 
 struct MainContainerView: View {
     let repository: RecipeRepository
+    let authService: AuthService
     
-    @State private var selectedTab = 0
+    @StateObject private var toastManager = ToastManager()
+    
+    @State private var selectedTab: Tab = .home
     @State private var showAddRecipe = false
+    @State private var activeToast: Toast? = nil
     
     var body: some View {
         GeometryReader { geometry in
@@ -19,32 +23,46 @@ struct MainContainerView: View {
                 TabView(selection: $selectedTab) {
                     
                     // 1. DASHBOARD TAB
-                    RecipeDashboardView(repository: repository, selectedTab: $selectedTab)
-                        .tabItem {
-                            Label("Home", systemImage: "house.fill")
-                        }
-                        .tag(0)
+                    RecipeDashboardView(
+                        repository: repository,
+                        authService: authService,
+                        toastManager: toastManager,
+                        selectedTab: $selectedTab
+                    )
+                    .tabItem {
+                        Label(Tab.home.title, systemImage: Tab.home.icon)
+                    }
+                    .tag(Tab.home)
                     
                     // 2. SEARCH TAB
                     ExploreView(repository: repository)
                         .tabItem {
-                            Label("Search", systemImage: "magnifyingglass")
+                            Label(Tab.search.title, systemImage: Tab.search.icon)
                         }
-                        .tag(1)
+                        .tag(Tab.search)
                     
                     // 3. SAVED TAB
-                    Text("Favorites")
-                        .tabItem {
-                            Label("My Recipes", systemImage: "fork.knife")
-                        }
-                        .tag(2)
+                    MyRecipesView(
+                        repository: repository,
+                        authService: authService,
+                        toastManager: toastManager
+                    )
+                    .tabItem {
+                        Label(Tab.recipes.title, systemImage: Tab.recipes.icon)
+                    }
+                    .tag(Tab.recipes)
                     
                     // 4. PROFILE TAB
-                    Text("Profile Settings")
-                        .tabItem {
-                            Label("Profile", systemImage: "person.fill")
-                        }
-                        .tag(3)
+                    ProfileView(
+                        repository: repository,
+                        authService: authService,
+                        toastManager: toastManager,
+                        selectedTab: $selectedTab
+                    )
+                    .tabItem {
+                        Label(Tab.profile.title, systemImage: Tab.profile.icon)
+                    }
+                    .tag(Tab.profile)
                 }
                 .tint(.orange) // Sets the active tab color to match ReciMe theme
                 
@@ -55,22 +73,28 @@ struct MainContainerView: View {
             }
         }
         .ignoresSafeArea(.keyboard, edges: .bottom)
+        .toastView(toast: $toastManager.activeToast)
         .sheet(isPresented: $showAddRecipe) {
             RecipeCreateView(
-                viewModel: RecipeCreateViewModel(recipeRepository: repository)
+                viewModel: RecipeCreateViewModel(
+                    recipeRepository: repository,
+                    authService: authService,
+                    toastManager: toastManager
+                )
             )
         }
+        .environmentObject(toastManager)
     }
 }
 
 #Preview {
-    let mockPersistence = RecipePersistenceService()
-    let mockNetwork = MockRecipeService()
-    
+    let previewPersistence = RecipePersistenceService()
+    let previewNetwork = MockRecipeService()
+    let previewAuth = AuthService()
     let previewRepo = RecipeRepository(
-        recipeService: mockNetwork,
-        persistence: mockPersistence
+        recipeService: previewNetwork,
+        persistence: previewPersistence
     )
 
-    MainContainerView(repository: previewRepo)
+    MainContainerView(repository: previewRepo, authService: previewAuth)
 }

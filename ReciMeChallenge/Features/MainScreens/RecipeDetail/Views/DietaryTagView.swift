@@ -25,3 +25,7 @@ struct DietaryTagView: View {
         .clipShape(Capsule())
     }
 }
+
+#Preview {
+    DietaryTagView(tag: .init(label: "Vegetarian", icon: "leaf.fill", color: .green))
+}

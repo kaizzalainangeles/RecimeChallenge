@@ -1,5 +1,5 @@
 //
-//  StatusCard.swift
+//  StatusCardView.swift
 //  ReciMeChallenge
 //
 //  Created by Kaizz Alain Benipayo Angeles on 1/22/26.
@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct StatusCard: View {
+struct StatusCardView: View {
     let title: String
-    let value: String
+    let value: Int
     let icon: String
     let color: Color
     
@@ -19,7 +19,7 @@ struct StatusCard: View {
                 .font(.headline)
                 .foregroundColor(color)
             
-            Text(value)
+            Text(value.description)
                 .font(.headline)
             
             Text(title)
@@ -33,4 +33,13 @@ struct StatusCard: View {
         .cornerRadius(12)
         .shadow(color: Color.black.opacity(0.03), radius: 5, x: 0, y: 2)
     }
+}
+
+#Preview {
+    StatusCardView(
+        title: "Recipes",
+        value: 1,
+        icon: "fork.knife",
+        color: .orange
+    )
 }

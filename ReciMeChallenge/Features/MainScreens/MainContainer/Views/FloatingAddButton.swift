@@ -29,3 +29,7 @@ struct FloatingAddButton: View {
         }
     }
 }
+
+#Preview {
+    FloatingAddButton(action: {})
+}

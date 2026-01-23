@@ -1,0 +1,109 @@
+//
+//  ProfileView.swift
+//  ReciMeChallenge
+//
+//  Created by Kaizz Alain Benipayo Angeles on 1/21/26.
+//
+
+import SwiftUI
+
+struct ProfileView: View {
+    @EnvironmentObject var toastManager: ToastManager
+    @StateObject var viewModel: ProfileViewModel
+    @Binding var selectedTab: Tab
+    
+    init(
+        repository: RecipeRepository,
+        authService: AuthService,
+        toastManager: ToastManager,
+        selectedTab: Binding<Tab>)
+    {
+        _viewModel = StateObject(wrappedValue: ProfileViewModel(
+            repository: repository,
+            authService: authService,
+            toastManager: toastManager
+        ))
+        _selectedTab = selectedTab
+    }
+    
+    var body: some View {
+        NavigationStack {
+            List {
+                // 1. PROFILE HEADER
+                Section {
+                    ProfileHeaderView(currentUser: viewModel.currentUser)
+                }
+                .listRowBackground(Color.clear)
+                .listRowInsets(EdgeInsets())
+
+                // 2. USER STATS BANNERS
+                Section {
+                    StatusSectionView(
+                        recipeCount: viewModel.recipeCount,
+                        followers: viewModel.currentUser.followers,
+                        likes: viewModel.currentUser.likes
+                    )
+                }
+                .listRowBackground(Color.clear)
+                .listRowInsets(EdgeInsets())
+
+                // 3. RECIPE MANAGEMENT
+                Section("My Kitchen") {
+                    Label("My Recipes", systemImage: "doc.text")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            selectedTab = .recipes
+                        }
+                }
+
+                // 4. PREFERENCES
+                Section("Preferences") {
+                    // This is for display purpose only
+                    Toggle(isOn: $viewModel.notificationsEnabled) {
+                        Label("Notifications", systemImage: "bell.badge")
+                    }
+                    .tint(.orange)
+                }
+
+                // 5. ACCOUNT ACTIONS
+                Section {
+                    // This is for display purpose only
+                    Button(role: .destructive, action: viewModel.onSignOutTapped) {
+                        Text("Sign Out")
+                            .frame(maxWidth: .infinity, alignment: .center)
+                    }
+                }
+            }
+            .navigationTitle("Profile")
+            .toolbar {
+                // This is for display purpose only
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: viewModel.onSettingsTapped) {
+                        Image(systemName: "gearshape")
+                    }
+                }
+            }
+        }
+    }
+}
+
+#Preview {
+    let previewPersistence = RecipePersistenceService()
+    let previewNetwork = MockRecipeService()
+    let previewRepo = RecipeRepository(
+        recipeService: previewNetwork,
+        persistence: previewPersistence
+    )
+
+    let previewAuth = AuthService()
+    let previewToast = ToastManager()
+    
+    ProfileView(
+        repository: previewRepo,
+        authService: previewAuth,
+        toastManager: previewToast,
+        selectedTab: .constant(.profile)
+    )
+    .environmentObject(previewToast)
+}

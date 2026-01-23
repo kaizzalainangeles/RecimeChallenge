@@ -58,6 +58,20 @@ struct Recipe: Identifiable, Codable, Hashable {
         
         // Truly optional field
         imageURL = try container.decodeIfPresent(URL.self, forKey: .imageURL)
-        creatorId = try container.decode(String.self, forKey: .id)
+        creatorId = try container.decodeIfPresent(String.self, forKey: .creatorId)
+    }
+    
+    var resolvedImageURL: URL? {
+        guard let originalURL = imageURL else { return nil }
+        
+        if originalURL.scheme == "http" || originalURL.scheme == "https" {
+            return originalURL
+        }
+        
+        // If it's a local file URL, we need to rebuild it because the
+        // Application UUID in the path changes on every build/install.
+        let fileName = originalURL.lastPathComponent
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        return documentsDirectory.appendingPathComponent(fileName)
     }
 }

@@ -1,5 +1,5 @@
 //
-//  SearchBar.swift
+//  SearchBarView.swift
 //  ReciMeChallenge
 //
 //  Created by Kaizz Alain Benipayo Angeles on 1/20/26.
@@ -32,3 +32,6 @@ struct SearchBarView: View {
     }
 }
 
+#Preview {
+    SearchBarView(searchText: .constant(""), onFilterTap: {})
+}

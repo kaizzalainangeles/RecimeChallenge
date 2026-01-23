@@ -17,14 +17,30 @@ struct RecipeMetaView: View {
             
             HStack(spacing: 16) {
                 Label("\(recipe.servings) servings", systemImage: "person.2.fill")
-                
-                if recipe.dietaryAttributes.isVegetarian == true {
-                    Label("Vegetarian", systemImage: "leaf.fill")
-                        .foregroundColor(.green)
-                }
             }
             .font(.subheadline.bold())
             .foregroundColor(.secondary)
         }
     }
+}
+
+#Preview {
+    let previewAttributes = DietaryAttributes(
+        isVegetarian: true,
+        isVegan: false,
+        isGlutenFree: true,
+        isSugarFree: true
+    )
+    
+    let previewRecipe = Recipe(
+        title: "Healthy Salad",
+        description: "A fresh and vibrant salad.",
+        servings: 2,
+        ingredients: [],
+        instructions: [],
+        dietaryAttributes: previewAttributes,
+        imageURL: nil
+    )
+    
+    RecipeMetaView(recipe: previewRecipe)
 }

@@ -8,13 +8,12 @@
 import Foundation
 import Combine
 
+// A mock service to simulate user data fetching and storing
 class AuthService: ObservableObject {
-    static let shared = AuthService()
+    var currentUserId: String
+    var currentUser: User
     
-    // In a real app, this would be fetched after login
-    @Published var currentUserId: String
-    
-    private init() {
+    init() {
         // Check if we already have a stored ID, otherwise create a new one
         if let storedId = UserDefaults.standard.string(forKey: "current_user_id") {
             self.currentUserId = storedId
@@ -23,5 +22,14 @@ class AuthService: ObservableObject {
             UserDefaults.standard.set(newId, forKey: "current_user_id")
             self.currentUserId = newId
         }
+        
+        currentUser = User(
+            id: currentUserId,
+            userName: "Chef Kaizz",
+            email: "angeleskaizz@gmail.com",
+            userBio: "Home Cook",
+            followers: 17,
+            likes: 17
+        )
     }
 }

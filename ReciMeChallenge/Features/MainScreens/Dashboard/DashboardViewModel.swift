@@ -16,12 +16,15 @@ class DashboardViewModel: ObservableObject {
     @Published var searchText: String = ""
     
     private let repository: RecipeRepository
-    private let authService: AuthService = .shared
+    private let authService: AuthService
+    private let toastManager: ToastManager
     
     private var cancellables = Set<AnyCancellable>()
     
-    init(repository: RecipeRepository) {
+    init(repository: RecipeRepository, authService: AuthService, toastManager: ToastManager) {
         self.repository = repository
+        self.authService = authService
+        self.toastManager = toastManager
         
         // Subscribe to repository changes
         repository.recipesPublisher
@@ -54,5 +57,9 @@ class DashboardViewModel: ObservableObject {
     
     func refreshData() async {
         await repository.sync()
+    }
+    
+    func onNotificationBellTapped() {
+        toastManager.show(style: .success, message: "Notification tapped!")
     }
 }

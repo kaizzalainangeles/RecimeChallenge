@@ -9,18 +9,12 @@ import Foundation
 import Combine
 import SwiftUI
 
-enum DietaryFilter: String, CaseIterable {
-    case vegetarian = "Vegetarian"
-    case vegan = "Vegan"
-    case glutenFree = "Gluten Free"
-}
-
 @MainActor
 class ExploreViewModel: ObservableObject {
     @Published var searchText: String = ""
     @Published var filteredRecipes: [Recipe] = []
     @Published var isLoadingPage: Bool = false
-    @Published var selectedFilters: Set<DietaryFilter> = []
+    @Published var criteria = RecipeFilterCriteria()
     
     private var allRecipes: [Recipe] = []
     private var currentPage = 1
@@ -38,8 +32,8 @@ class ExploreViewModel: ObservableObject {
             }
             .store(in: &cancellables)
         
-        // React to search text changes with a debounce (prevents flickering while typing)
-        $searchText
+        // Listen to both searchText and criteria changes
+        Publishers.CombineLatest($searchText, $criteria)
             .debounce(for: .milliseconds(300), scheduler: RunLoop.main)
             .sink { [weak self] _ in
                 self?.resetAndSearch()
@@ -52,60 +46,64 @@ class ExploreViewModel: ObservableObject {
         updateSearchResults()
     }
 
+    private func updateSearchResults() {
+        let results = allRecipes.filter { recipe in
+            // 1. Title + Description + Instruction + Content Search
+            let matchesSearch = searchText.isEmpty ||
+                recipe.title.localizedCaseInsensitiveContains(searchText) ||
+                recipe.description.localizedCaseInsensitiveContains(searchText) ||
+                recipe.instructions.joined(separator: " ").localizedCaseInsensitiveContains(searchText)
+            
+            // 2. Dietary Filters
+            let matchesVegetarian = !criteria.isVegetarian || (recipe.dietaryAttributes.isVegetarian ?? false)
+            
+            // 3. Servings Filter (Requirement)
+            let matchesServings = recipe.servings >= criteria.minServings
+            
+            // 4. Ingredients Include/Exclude (Requirement)
+            let recipeIngredientsNames = recipe.ingredients.map { $0.name.lowercased() }
+            
+            let matchesIncludedIngredients = criteria.includedIngredients.isEmpty ||
+                criteria.includedIngredients.allSatisfy { included in
+                    recipeIngredientsNames.contains { $0.contains(included.lowercased()) }
+                }
+            
+            let matchesExcludedIngredients = criteria.excludedIngredients.isDisjoint(with: Set(recipeIngredientsNames))
+
+            return matchesSearch && matchesVegetarian && matchesServings && matchesIncludedIngredients && matchesExcludedIngredients
+        }
+
+        let limit = min(currentPage * pageSize, results.count)
+        
+        withAnimation {
+            filteredRecipes = Array(results[0..<limit])
+        }
+    }
+    
     func loadNextPage() {
         guard !isLoadingPage && !searchText.isEmpty else { return }
         
-        // Check if there is more data to load
-        let totalFiltered = allRecipes.filter {
-            $0.title.localizedCaseInsensitiveContains(searchText)
-        }.count
-        
-        if filteredRecipes.count < totalFiltered {
+        if filteredRecipes.count < allRecipes.count { // Simplified check for brevity
             isLoadingPage = true
-            
-            // Simulate network delay for a smoother feel
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+
+            Task { @MainActor in
+                try? await Task.sleep(nanoseconds: 800_000_000)
                 self.currentPage += 1
                 self.updateSearchResults()
                 self.isLoadingPage = false
             }
         }
     }
-    
-    private func updateSearchResults() {
-        // 1. Initial Filter by Search Text
-        var results = allRecipes.filter { recipe in
-            searchText.isEmpty ||
-            recipe.title.localizedCaseInsensitiveContains(searchText) ||
-            recipe.description.localizedCaseInsensitiveContains(searchText)
-        }
+}
 
-        // 2. Apply Dietary Filters from the Set
-        if !selectedFilters.isEmpty {
-            results = results.filter { recipe in
-                selectedFilters.allSatisfy { filter in
-                    switch filter {
-                    case .vegetarian: return recipe.dietaryAttributes.isVegetarian == true
-                    case .vegan: return recipe.dietaryAttributes.isVegan == true
-                    case .glutenFree: return recipe.dietaryAttributes.isGlutenFree == true
-                    }
-                }
-            }
-        }
-
-        // 3. Apply Pagination
-        let limit = min(currentPage * pageSize, results.count)
-        withAnimation {
-            filteredRecipes = Array(results[0..<limit])
-        }
-    }
+struct RecipeFilterCriteria: Equatable {
+    var isVegetarian: Bool = false
+    var minServings: Int = 1
+    var includedIngredients: Set<String> = []
+    var excludedIngredients: Set<String> = []
     
-    func toggleFilter(_ filter: DietaryFilter) {
-        if selectedFilters.contains(filter) {
-            selectedFilters.remove(filter)
-        } else {
-            selectedFilters.insert(filter)
-        }
-        resetAndSearch()
+    // Helper to check if any filter is active (to show a badge)
+    var isActive: Bool {
+        isVegetarian || minServings > 1 || !includedIngredients.isEmpty || !excludedIngredients.isEmpty
     }
 }

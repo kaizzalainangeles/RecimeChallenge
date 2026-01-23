@@ -1,5 +1,5 @@
 //
-//  RecipeCard2View.swift
+//  RecipeCardView.swift
 //  ReciMeChallenge
 //
 //  Created by Kaizz Alain Benipayo Angeles on 1/23/26.
@@ -41,14 +41,15 @@ struct RecipeCardView: View {
                         Spacer()
                         Image(systemName: "leaf.fill")
                             .foregroundColor(.green)
-                            .font(.caption)
+                            .font(.subheadline)
+                            .padding(.top, 4)
                     }
                 }
                 
                 Text(secondaryText)
                     .font(.caption)
                     .foregroundColor(.secondary)
-                    .lineLimit(style == .wide ? 2 : 1)
+                    .lineLimit(1)
             }
             .padding(style == .wide ? 16 : 8)
         }
@@ -94,4 +95,27 @@ struct RecipeCardView: View {
     private var cornerRadius: CGFloat {
         style == .wide ? 20 : 15
     }
+}
+
+
+#Preview {
+    let previewAttributes = DietaryAttributes(
+        isVegetarian: true,
+        isVegan: false,
+        isGlutenFree: true,
+        isSugarFree: true
+    )
+    
+    let previewRecipe = Recipe(
+        title: "Healthy Summer Salad",
+        description: "A fresh and vibrant salad.",
+        servings: 2,
+        ingredients: [],
+        instructions: [],
+        dietaryAttributes: previewAttributes,
+        imageURL: nil
+    )
+    
+    RecipeCardView(recipe: previewRecipe, style: .wide)
+        .padding()
 }

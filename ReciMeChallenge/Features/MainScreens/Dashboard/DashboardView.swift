@@ -7,12 +7,21 @@
 
 import SwiftUI
 
+enum RecipeGroupType {
+    case featured
+    case owned
+}
+
 struct RecipeDashboardView: View {
     @StateObject private var viewModel: DashboardViewModel
-    @Binding var selectedTab: Int
+    @Binding var selectedTab: Tab
     
-    init(repository: RecipeRepository, selectedTab: Binding<Int>) {
-        _viewModel = StateObject(wrappedValue: DashboardViewModel(repository: repository))
+    init(repository: RecipeRepository, authService: AuthService, toastManager: ToastManager, selectedTab: Binding<Tab>) {
+        _viewModel = StateObject(wrappedValue: DashboardViewModel(
+            repository: repository,
+            authService: authService,
+            toastManager: toastManager
+        ))
         _selectedTab = selectedTab
     }
     
@@ -25,19 +34,19 @@ struct RecipeDashboardView: View {
                     
                     // 2. FEATURED SECTION (Randomly picked by VM)
                     SliderView(
-                        title: "Featured for You",
+                        title: "Featured",
                         recipes: viewModel.featuredRecipes,
-                        noRecipesMessage: "No featured recipes available.",
-                        onSeeMorePressed: { selectedTab = 2 }
+                        recipeGroupType: .featured,
+                        onSeeMorePressed: { selectedTab = .search } // Switch to Search Tab
                     )
                     .padding(.bottom)
                     
                     // 3. OWNED RECIPES SECTION (Randomly picked by VM)
                     SliderView(
-                        title: "Your Recipe's",
+                        title: "My Recipe's",
                         recipes: viewModel.ownedRecipes,
-                        noRecipesMessage: "You haven't added any recipes yet.",
-                        onSeeMorePressed: { selectedTab = 2 } //Switch to My Recipes Tab
+                        recipeGroupType: .owned,
+                        onSeeMorePressed: { selectedTab = .recipes } // Switch to My Recipes Tab
                     )
                     .padding(.vertical)
                 }
@@ -45,16 +54,17 @@ struct RecipeDashboardView: View {
                 .padding(.bottom, 100)
             }
             .background(Color(.systemGroupedBackground))
-            .task {
-                await viewModel.refreshData()
-            }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {}) {
+                    // This is for display purpose only
+                    Button(action: viewModel.onNotificationBellTapped) {
                         Image(systemName: "bell.fill")
                     }
                     .badge(1)
                 }
+            }
+            .task {
+                await viewModel.refreshData()
             }
         }
     }
@@ -70,41 +80,23 @@ struct RecipeDashboardView: View {
         }
         .padding(.horizontal)
     }
-    
-    private var searchSection: some View {
-        SearchBarView(searchText: $viewModel.searchText, onFilterTap: {})
-            .overlay(
-                Rectangle()
-                    .fill(.clear)
-                    .contentShape(Rectangle())
-                    .onTapGesture {
-                        withAnimation() {
-                            selectedTab = 1 // Switch to Search Tab
-                        }
-                    }
-            )
-    }
-    
-    private var recipeListSection: some View {
-        VStack(alignment: .leading) {
-            Text("Explore More").font(.headline).padding(.horizontal)
-            
-            ForEach(viewModel.filteredRecipes) { recipe in
-                // Small Row View for other recipes
-                Text(recipe.title).padding()
-            }
-        }
-    }
 }
 
 #Preview {
-    let mockPersistence = RecipePersistenceService()
-    let mockNetwork = MockRecipeService()
-    
+    let previewPersistence = RecipePersistenceService()
+    let previewNetwork = MockRecipeService()
     let previewRepo = RecipeRepository(
-        recipeService: mockNetwork,
-        persistence: mockPersistence
+        recipeService: previewNetwork,
+        persistence: previewPersistence
     )
     
-    MainContainerView(repository: previewRepo)
+    let previewAuth = AuthService()
+    let previewToast = ToastManager()
+    
+    RecipeDashboardView(
+        repository: previewRepo,
+        authService: previewAuth,
+        toastManager: previewToast,
+        selectedTab: .constant(.home)
+    )
 }

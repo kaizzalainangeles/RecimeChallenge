@@ -53,8 +53,34 @@ class RecipeRepository: ObservableObject, RecipeRepositoryProtocol {
     
     func deleteRecipe(_ recipe: Recipe) {
         persistence.deleteRecipe(id: recipe.id)
+        deleteRecipeImageFromDiskIfNeeded(recipe)
         
         // Refresh the local published list
         self.recipes = persistence.fetchRecipes()
+    }
+    
+    func saveImageToDisk(data: Data) -> URL? {
+        let fileName = "\(UUID().uuidString).jpg"
+        let folder = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let fileURL = folder.appendingPathComponent(fileName)
+        
+        do {
+            try data.write(to: fileURL)
+            return URL(string: fileName)
+        } catch {
+            print("Error saving image: \(error)")
+            return nil
+        }
+    }
+    
+    func deleteRecipeImageFromDiskIfNeeded(_ recipe: Recipe) {
+        // Remove the image file from disk if it's local
+        if let url = recipe.resolvedImageURL, url.isFileURL {
+            let fileName = url.lastPathComponent
+            let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+            let fileURL = documentsDirectory.appendingPathComponent(fileName)
+            
+            try? FileManager.default.removeItem(at: fileURL)
+        }
     }
 }

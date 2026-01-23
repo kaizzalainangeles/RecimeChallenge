@@ -14,42 +14,62 @@ struct RecipeDetailView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 0) {
                 // 1. Full-width Image
-                RecipeImageView(imageURL: recipe.imageURL)
+                RecipeImage(recipe: recipe)
+                    .frame(height: 240)
+                    .overlay(
+                        LinearGradient(colors: [.black.opacity(0.3), .clear], startPoint: .top, endPoint: .center)
+                    )
+                    .clipped()
                 
                 VStack(alignment: .leading, spacing: 24) {
                     // 2. Title
                     RecipeMetaView(recipe: recipe)
                     
-                    // 3. Description
-                    RecipeSectionView(title: "About the Dish") {
-                        Text(recipe.description)
-                            .font(.body)
-                            .lineSpacing(4)
-                            .foregroundColor(.secondary)
-                    }
+                    // 3. Dietary Attributes
+                    DietaryTagsSection(recipe: recipe)
                     
-                    // 4. Ingredients
-                    RecipeSectionView(title: "Ingredients") {
-                        VStack(spacing: 12) {
-                            ForEach(recipe.ingredients) { ingredient in
-                                IngredientRow(ingredient: ingredient)
-                            }
+                    // 4. Description
+                    RecipeSectionView(title: "About the Dish") {
+                        if !recipe.description.isEmpty {
+                            Text(recipe.description)
+                                .font(.body)
+                                .lineSpacing(4)
+                                .foregroundColor(.secondary)
+                        } else {
+                            EmptySectionPlaceholderView(message: "No description provided.")
                         }
                     }
                     
-                    // 5. Instructions
-                    RecipeSectionView(title: "Steps") {
-                        VStack(alignment: .leading, spacing: 20) {
-                            ForEach(recipe.instructions.indices, id: \.self) { index in
-                                InstructionStepRow(index: index, text: recipe.instructions[index])
+                    // 5. Ingredients
+                    RecipeSectionView(title: "Ingredients") {
+                        if !recipe.ingredients.isEmpty {
+                            VStack(spacing: 12) {
+                                ForEach(recipe.ingredients) { ingredient in
+                                    IngredientRowView(ingredient: ingredient)
+                                }
                             }
+                        } else {
+                            EmptySectionPlaceholderView(message: "No ingredients listed.")
+                        }
+                    }
+                    
+                    // 6. Instructions
+                    RecipeSectionView(title: "Steps") {
+                        if !recipe.instructions.isEmpty {
+                            VStack(alignment: .leading, spacing: 20) {
+                                ForEach(recipe.instructions.indices, id: \.self) { index in
+                                    InstructionStepRowView(index: index, text: recipe.instructions[index])
+                                }
+                            }
+                        } else {
+                            EmptySectionPlaceholderView(message: "No instructions available.")
                         }
                     }
                 }
                 .padding(24)
                 .background(Color(.systemBackground))
-                .cornerRadius(30) // Overlaps the image slightly
-                .offset(y: -30)
+                .cornerRadius(30)
+                .offset(y: -30) // Overlaps the image slightly
             }
         }
         .ignoresSafeArea(.container, edges: .top)
