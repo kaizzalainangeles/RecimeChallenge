@@ -13,13 +13,13 @@ struct ProfileView: View {
     @Binding var selectedTab: Tab
     
     init(
-        repository: RecipeRepositoryProtocol,
+        recipeRepository: RecipeRepositoryProtocol,
         authService: AuthServiceProtocol,
         toastManager: ToastManager,
         selectedTab: Binding<Tab>)
     {
         _viewModel = StateObject(wrappedValue: ProfileViewModel(
-            recipeRepository: repository,
+            recipeRepository: recipeRepository,
             authService: authService,
             toastManager: toastManager
         ))
@@ -63,6 +63,9 @@ struct ProfileView: View {
                     Toggle(isOn: $viewModel.notificationsEnabled) {
                         Label("Notifications", systemImage: "bell.badge")
                     }
+                    .onChange(of: viewModel.notificationsEnabled) {
+                        viewModel.onNotificationToggle()
+                    }
                     .tint(.orange)
                 }
 
@@ -100,7 +103,7 @@ struct ProfileView: View {
     let previewToast = ToastManager()
     
     ProfileView(
-        repository: previewRepo,
+        recipeRepository: previewRepo,
         authService: previewAuth,
         toastManager: previewToast,
         selectedTab: .constant(.profile)

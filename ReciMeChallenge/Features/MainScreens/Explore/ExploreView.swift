@@ -11,8 +11,8 @@ struct ExploreView: View {
     @StateObject private var viewModel: ExploreViewModel
     @State private var showFilters = false
 
-    init(repository: RecipeRepositoryProtocol) {
-        _viewModel = StateObject(wrappedValue: ExploreViewModel(repository: repository))
+    init(recipeRepository: RecipeRepositoryProtocol) {
+        _viewModel = StateObject(wrappedValue: ExploreViewModel(recipeRepository: recipeRepository))
     }
 
     var body: some View {
@@ -124,5 +124,5 @@ struct ExploreView: View {
         persistence: previewPersistence
     )
 
-    ExploreView(repository: previewRepo)
+    ExploreView(recipeRepository: previewRepo)
 }

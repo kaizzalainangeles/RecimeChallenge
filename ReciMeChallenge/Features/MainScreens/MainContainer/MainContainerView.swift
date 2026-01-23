@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MainContainerView: View {
-    let repository: RecipeRepositoryProtocol
+    let recipeRepository: RecipeRepositoryProtocol
     let authService: AuthServiceProtocol
     
     @StateObject private var toastManager = ToastManager()
@@ -24,7 +24,7 @@ struct MainContainerView: View {
                     
                     // 1. DASHBOARD TAB
                     RecipeDashboardView(
-                        repository: repository,
+                        recipeRepository: recipeRepository,
                         authService: authService,
                         toastManager: toastManager,
                         selectedTab: $selectedTab
@@ -35,7 +35,7 @@ struct MainContainerView: View {
                     .tag(Tab.home)
                     
                     // 2. SEARCH TAB
-                    ExploreView(repository: repository)
+                    ExploreView(recipeRepository: recipeRepository)
                         .tabItem {
                             Label(Tab.search.title, systemImage: Tab.search.icon)
                         }
@@ -43,7 +43,7 @@ struct MainContainerView: View {
                     
                     // 3. SAVED TAB
                     MyRecipesView(
-                        repository: repository,
+                        recipeRepository: recipeRepository,
                         authService: authService,
                         toastManager: toastManager
                     )
@@ -54,7 +54,7 @@ struct MainContainerView: View {
                     
                     // 4. PROFILE TAB
                     ProfileView(
-                        repository: repository,
+                        recipeRepository: recipeRepository,
                         authService: authService,
                         toastManager: toastManager,
                         selectedTab: $selectedTab
@@ -76,11 +76,9 @@ struct MainContainerView: View {
         .toastView(toast: $toastManager.activeToast)
         .sheet(isPresented: $showAddRecipe) {
             RecipeCreateView(
-                viewModel: RecipeCreateViewModel(
-                    recipeRepository: repository,
-                    authService: authService,
-                    toastManager: toastManager
-                )
+                recipeRepository: recipeRepository,
+                authService: authService,
+                toastManager: toastManager
             )
         }
         .environmentObject(toastManager)
@@ -96,5 +94,5 @@ struct MainContainerView: View {
         persistence: previewPersistence
     )
 
-    MainContainerView(repository: previewRepo, authService: previewAuth)
+    MainContainerView(recipeRepository: previewRepo, authService: previewAuth)
 }

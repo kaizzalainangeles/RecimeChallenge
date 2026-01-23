@@ -37,14 +37,13 @@ class RecipeCreateViewModel: ObservableObject {
     }
     
     func save() {
-        var finalImageURL: URL? = nil
+        // 1. Saving the selected image to disk and retrieving the url
+        let imageURL = saveSelectedImageToDisk()
         
-        if let data = selectedImageData {
-            finalImageURL = recipeRepository.saveImageToDisk(data: data)
-        }
-        
+        // 2. Cleaning extra spaces for string inputs
         cleanInputStrings()
         
+        // 3. Creating the DietaryAttribute object based on the selected dietary
         let dietary = DietaryAttributes(
             isVegetarian: selectedDietary.contains(.vegetarian),
             isVegan: selectedDietary.contains(.vegan),
@@ -52,6 +51,7 @@ class RecipeCreateViewModel: ObservableObject {
             isSugarFree: selectedDietary.contains(.sugarFree)
         )
         
+        // 4. Creating the Recipe Object
         let newRecipe = Recipe(
             title: title,
             description: description,
@@ -59,18 +59,38 @@ class RecipeCreateViewModel: ObservableObject {
             ingredients: ingredients.filter { !$0.name.isEmpty },
             instructions: instructions.filter { !$0.isEmpty },
             dietaryAttributes: dietary,
-            imageURL: finalImageURL,
+            imageURL: imageURL,
             creatorId: authService.currentUserId
         )
         
-        recipeRepository.addRecipe(newRecipe)
-        toastManager.show(style: .success, message: "Recipe added successfully!")
+        // 5. Add recipe to the storage and show toast for successful or failed addition
+        do {
+            try recipeRepository.addRecipe(newRecipe)
+            toastManager.show(style: .success, message: "Recipe added successfully!")
+        } catch {
+            toastManager.show(style: .error, message: error.localizedDescription)
+        }
+    }
+}
+
+// MARK: - Recipe Object Creation Helpers
+
+extension RecipeCreateViewModel {
+    func saveSelectedImageToDisk() -> URL? {
+        guard let data = selectedImageData else { return nil }
+        
+        do {
+            return try recipeRepository.saveImageToDisk(data: data)
+        } catch {
+            toastManager.show(style: .error, message: "Failed to save image.")
+            return nil
+        }
     }
     
     func cleanInputStrings() {
         // 1. Trim whitespace and newlines from the title
         self.title = self.title.trimmingCharacters(in: .whitespacesAndNewlines)
-            
+        
         // 2. Clean Ingredients: Remove empty rows and trim text
         self.ingredients = self.ingredients.compactMap { ingredient in
             let cleanedName = ingredient.name.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -88,7 +108,12 @@ class RecipeCreateViewModel: ObservableObject {
             return cleanedStep.isEmpty ? nil : cleanedStep
         }
     }
-    
+}
+ 
+
+// MARK: - Form Helpers
+
+extension RecipeCreateViewModel {
     func handleImageSelection(_ item: PhotosPickerItem?) {
         Task { @MainActor in
             guard let item = item else { return }
@@ -102,13 +127,13 @@ class RecipeCreateViewModel: ObservableObject {
         let hasTitle = !title.trimmingCharacters(in: .whitespaces).isEmpty
         
         // Ensure at least one ingredient exists and has a name/quantity
-        let hasIngredients = !ingredients.isEmpty && ingredients.allSatisfy {
+        let hasIngredients = !ingredients.isEmpty && ingredients.contains {
             !$0.name.trimmingCharacters(in: .whitespaces).isEmpty &&
             !$0.quantity.trimmingCharacters(in: .whitespaces).isEmpty
         }
         
         // Ensure at least one instruction exists and isn't empty
-        let hasInstructions = !instructions.isEmpty && instructions.allSatisfy {
+        let hasInstructions = !instructions.isEmpty && instructions.contains {
             !$0.trimmingCharacters(in: .whitespaces).isEmpty
         }
 

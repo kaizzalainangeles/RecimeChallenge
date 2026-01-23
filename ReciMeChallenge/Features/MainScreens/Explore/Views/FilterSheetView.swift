@@ -102,7 +102,7 @@ struct FilterSheetView: View {
         persistence: previewPersistence
     )
     
-    let previewViewModel = ExploreViewModel(repository: previewRepo)
+    let previewViewModel = ExploreViewModel(recipeRepository: previewRepo)
     
     FilterSheetView(viewModel: previewViewModel)
 }

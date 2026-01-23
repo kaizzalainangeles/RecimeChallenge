@@ -15,19 +15,19 @@ class DashboardViewModel: ObservableObject {
     @Published var allRecipes: [Recipe] = []
     @Published var searchText: String = ""
     
-    private let repository: RecipeRepositoryProtocol
+    private let recipeRepository: RecipeRepositoryProtocol
     private let authService: AuthServiceProtocol
     private let toastManager: ToastManager
     
     private var cancellables = Set<AnyCancellable>()
     
-    init(repository: RecipeRepositoryProtocol, authService: AuthServiceProtocol, toastManager: ToastManager) {
-        self.repository = repository
+    init(recipeRepository: RecipeRepositoryProtocol, authService: AuthServiceProtocol, toastManager: ToastManager) {
+        self.recipeRepository = recipeRepository
         self.authService = authService
         self.toastManager = toastManager
         
         // Subscribe to repository changes
-        repository.recipesPublisher
+        recipeRepository.recipesPublisher
             .sink { [weak self] recipes in
                 self?.allRecipes = recipes
                 self?.selectRandomFeatured()
@@ -36,10 +36,12 @@ class DashboardViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
+    // Select 5 random recipes to display for featured recipes
     func selectRandomFeatured() {
         featuredRecipes = Array(allRecipes.shuffled().prefix(5))
     }
     
+    // Select 5 random owned recipes to display
     func selectOwnedRecipes() {
         let creatorId = authService.currentUserId
         let recipesWithSameCreatorId = allRecipes.filter { $0.creatorId == creatorId }
@@ -56,7 +58,11 @@ class DashboardViewModel: ObservableObject {
     }
     
     func refreshData() async {
-        await repository.sync()
+        do {
+            try await recipeRepository.sync()
+        } catch {
+            toastManager.show(style: .error, message: error.localizedDescription)
+        }
     }
     
     func onLogoButtonTapped() {

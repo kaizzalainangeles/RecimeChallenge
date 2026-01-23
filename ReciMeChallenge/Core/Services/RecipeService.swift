@@ -25,8 +25,7 @@ final class FetchRecipeService: RecipeService {
             
             return try decoder.decode([Recipe].self, from: data)
         } catch {
-            print("Decoding Error: \(error)") // Logging error to determine exactly which field failed
-            throw error
+            throw RecipeError.decodingError(error.localizedDescription)
         }
     }
 }

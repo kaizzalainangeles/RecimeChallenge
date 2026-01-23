@@ -88,7 +88,7 @@ struct SliderView: View {
                 exploreButton
             }
         }
-        .frame(width: 320, height: 280)
+        .frame(width: 300, height: 260)
         .background {
             RoundedRectangle(cornerRadius: 20)
                 .strokeBorder(style: StrokeStyle(lineWidth: 2, dash: [10, 5]))

@@ -14,10 +14,10 @@ import Combine
 /// whether from a local database, remote API, or other sources.
 protocol RecipeRepositoryProtocol {
     var recipesPublisher: AnyPublisher<[Recipe], Never> { get }
-    func sync() async
-    func addRecipe(_ recipe: Recipe)
-    func deleteRecipe(_ recipe: Recipe)
-    func saveImageToDisk(data: Data) -> URL?
+    func sync() async throws
+    func addRecipe(_ recipe: Recipe) throws
+    func deleteRecipe(_ recipe: Recipe) throws
+    func saveImageToDisk(data: Data) throws -> URL?
 }
 
 @MainActor
@@ -34,37 +34,38 @@ class RecipeRepository: ObservableObject, RecipeRepositoryProtocol {
     init(recipeService: RecipeService, persistence: RecipePersistenceService) {
         self.recipeService = recipeService
         self.persistence = persistence
-
+        
         self.recipes = persistence.fetchRecipes()
     }
     
-    func sync() async {
-        do {
-            let remote = try await recipeService.fetchRecipes()
-            persistence.saveRecipes(remote)
-
-            self.recipes = persistence.fetchRecipes()
-        } catch {
-            print("Sync failed, using offline data")
-        }
+    func sync() async throws {
+        let remote = try await recipeService.fetchRecipes()
+        try persistence.saveRecipes(remote)
+        
+        self.recipes = persistence.fetchRecipes()
     }
     
-    func addRecipe(_ recipe: Recipe) {
-        persistence.saveRecipes([recipe])
+    func addRecipe(_ recipe: Recipe) throws {
+        try persistence.saveRecipes([recipe])
         
         // Refresh the local published list
         self.recipes = persistence.fetchRecipes()
     }
     
-    func deleteRecipe(_ recipe: Recipe) {
-        persistence.deleteRecipe(id: recipe.id)
+    func deleteRecipe(_ recipe: Recipe) throws {
+        try persistence.deleteRecipe(id: recipe.id)
         deleteRecipeImageFromDiskIfNeeded(recipe)
         
         // Refresh the local published list
         self.recipes = persistence.fetchRecipes()
     }
-    
-    func saveImageToDisk(data: Data) -> URL? {
+}
+
+
+// MARK: - Image Helpers
+
+extension RecipeRepository {
+    func saveImageToDisk(data: Data) throws -> URL? {
         let fileName = "\(UUID().uuidString).jpg"
         let folder = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         let fileURL = folder.appendingPathComponent(fileName)
@@ -73,8 +74,7 @@ class RecipeRepository: ObservableObject, RecipeRepositoryProtocol {
             try data.write(to: fileURL)
             return URL(string: fileName)
         } catch {
-            print("Error saving image: \(error)")
-            return nil
+            throw RecipeError.imageSaveFailed
         }
     }
     

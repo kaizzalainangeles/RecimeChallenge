@@ -18,9 +18,9 @@ struct MyRecipesView: View {
         GridItem(.flexible(), spacing: 16)
     ]
     
-    init(repository: RecipeRepositoryProtocol, authService: AuthServiceProtocol, toastManager: ToastManager) {
+    init(recipeRepository: RecipeRepositoryProtocol, authService: AuthServiceProtocol, toastManager: ToastManager) {
         _viewModel = StateObject(wrappedValue: MyRecipesViewModel(
-            recipeRepository: repository,
+            recipeRepository: recipeRepository,
             authService: authService,
             toastManager: toastManager
         ))
@@ -125,5 +125,9 @@ struct MyRecipesView: View {
     let previewToast = ToastManager()
     
 
-    MyRecipesView(repository: previewRepo, authService: previewAuth, toastManager: previewToast)
+    MyRecipesView(
+        recipeRepository: previewRepo,
+        authService: previewAuth,
+        toastManager: previewToast
+    )
 }

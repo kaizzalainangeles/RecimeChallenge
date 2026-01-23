@@ -16,9 +16,9 @@ struct RecipeDashboardView: View {
     @StateObject private var viewModel: DashboardViewModel
     @Binding var selectedTab: Tab
     
-    init(repository: RecipeRepositoryProtocol, authService: AuthServiceProtocol, toastManager: ToastManager, selectedTab: Binding<Tab>) {
+    init(recipeRepository: RecipeRepositoryProtocol, authService: AuthServiceProtocol, toastManager: ToastManager, selectedTab: Binding<Tab>) {
         _viewModel = StateObject(wrappedValue: DashboardViewModel(
-            repository: repository,
+            recipeRepository: recipeRepository,
             authService: authService,
             toastManager: toastManager
         ))
@@ -113,7 +113,7 @@ struct RecipeDashboardView: View {
     let previewToast = ToastManager()
     
     RecipeDashboardView(
-        repository: previewRepo,
+        recipeRepository: previewRepo,
         authService: previewAuth,
         toastManager: previewToast,
         selectedTab: .constant(.home)

@@ -19,13 +19,13 @@ class ExploreViewModel: ObservableObject {
     private var allRecipes: [Recipe] = []
     private var currentPage = 1
     private let pageSize = 10
-    private let repository: RecipeRepositoryProtocol
+    private let recipeRepository: RecipeRepositoryProtocol
     private var cancellables = Set<AnyCancellable>()
 
-    init(repository: RecipeRepositoryProtocol) {
-        self.repository = repository
+    init(recipeRepository: RecipeRepositoryProtocol) {
+        self.recipeRepository = recipeRepository
         
-        repository.recipesPublisher
+        recipeRepository.recipesPublisher
             .sink { [weak self] in
                 self?.allRecipes = $0
                 self?.updateSearchResults()
@@ -45,42 +45,50 @@ class ExploreViewModel: ObservableObject {
         currentPage = 1
         updateSearchResults()
     }
-
+    
     private func updateSearchResults() {
-        let results = allRecipes.filter { recipe in
-            // 1. Title + Description + Instruction + Content Search
-            let matchesSearch = searchText.isEmpty ||
-                recipe.title.localizedCaseInsensitiveContains(searchText) ||
-                recipe.description.localizedCaseInsensitiveContains(searchText) ||
-                recipe.instructions.joined(separator: " ").localizedCaseInsensitiveContains(searchText)
-            
-            // 2. Dietary Filters
-            let matchesVegetarian = !criteria.isVegetarian || (recipe.dietaryAttributes.isVegetarian ?? false)
-            let matchesVegan = !criteria.isVegan || (recipe.dietaryAttributes.isVegan ?? false)
-            let matchesGlutenFree = !criteria.isGlutenFree || (recipe.dietaryAttributes.isGlutenFree ?? false)
-            let matchesSugarFree = !criteria.isSugarFree || (recipe.dietaryAttributes.isSugarFree ?? false)
-            
-            // 3. Servings Filter (Requirement)
-            let matchesServings = recipe.servings >= criteria.minServings
-            
-            // 4. Ingredients Include/Exclude (Requirement)
-            let recipeIngredientsNames = recipe.ingredients.map { $0.name.lowercased() }
-            
-            let matchesIncludedIngredients = criteria.includedIngredients.isEmpty ||
-                criteria.includedIngredients.allSatisfy { included in
-                    recipeIngredientsNames.contains { $0.contains(included.lowercased()) }
-                }
-            
-            let matchesExcludedIngredients = criteria.excludedIngredients.isDisjoint(with: Set(recipeIngredientsNames))
-
-            return matchesSearch && matchesVegetarian && matchesVegan && matchesGlutenFree && matchesSugarFree && matchesServings && matchesIncludedIngredients && matchesExcludedIngredients
-        }
-
+        let results = allRecipes.filter { matches($0) }
         let limit = min(currentPage * pageSize, results.count)
         
         withAnimation {
             filteredRecipes = Array(results[0..<limit])
         }
+    }
+
+    private func matches(_ recipe: Recipe) -> Bool {
+        // 1. Text Search
+        if !searchText.isEmpty {
+            let query = searchText.lowercased()
+            let content = (recipe.title + recipe.description + recipe.instructions.joined()).lowercased()
+            guard content.contains(query) else { return false }
+        }
+
+        // 2. Dietary Attributes
+        let attr = recipe.dietaryAttributes
+        if criteria.isVegetarian && !(attr.isVegetarian ?? false) { return false }
+        if criteria.isVegan && !(attr.isVegan ?? false) { return false }
+        if criteria.isGlutenFree && !(attr.isGlutenFree ?? false) { return false }
+        if criteria.isSugarFree && !(attr.isSugarFree ?? false) { return false }
+
+        // 3. Servings
+        if recipe.servings < criteria.minServings { return false }
+
+        // 4. Ingredients
+        let recipeIngredientNames = recipe.ingredients.map { $0.name.lowercased() }
+        
+        // Check Exclusions first (Fast fail)
+        let hasExcluded = !criteria.excludedIngredients.isDisjoint(with: Set(recipeIngredientNames))
+        if hasExcluded { return false }
+        
+        // Check Inclusions
+        if !criteria.includedIngredients.isEmpty {
+            let allIncludedPresent = criteria.includedIngredients.allSatisfy { included in
+                recipeIngredientNames.contains { $0.contains(included.lowercased()) }
+            }
+            if !allIncludedPresent { return false }
+        }
+
+        return true
     }
     
     func loadNextPage() {
@@ -110,6 +118,6 @@ struct RecipeFilterCriteria: Equatable {
     
     // Helper to check if any filter is active (to show a badge)
     var isActive: Bool {
-        isVegetarian || minServings > 1 || !includedIngredients.isEmpty || !excludedIngredients.isEmpty
+        isVegetarian || isVegan || isGlutenFree || isSugarFree || minServings > 1 || !includedIngredients.isEmpty || !excludedIngredients.isEmpty
     }
 }

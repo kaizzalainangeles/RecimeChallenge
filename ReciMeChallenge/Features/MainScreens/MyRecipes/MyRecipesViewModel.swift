@@ -41,11 +41,19 @@ class MyRecipesViewModel: ObservableObject {
     }
     
     func refreshData() async {
-        await recipeRepository.sync()
+        do {
+            try await recipeRepository.sync()
+        } catch {
+            toastManager.show(style: .error, message: error.localizedDescription)
+        }
     }
     
     func deleteRecipe(_ recipe: Recipe) {
-        recipeRepository.deleteRecipe(recipe)
-        toastManager.show(style: .success, message: "Recipe deleted successfully.")
+        do {
+            try recipeRepository.deleteRecipe(recipe)
+            toastManager.show(style: .success, message: "Recipe deleted successfully.")
+        } catch {
+            toastManager.show(style: .error, message: error.localizedDescription)
+        }
     }
 }

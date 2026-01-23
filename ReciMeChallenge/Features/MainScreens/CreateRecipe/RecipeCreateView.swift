@@ -10,7 +10,7 @@ import PhotosUI
 
 struct RecipeCreateView: View {
     @Environment(\.dismiss) var dismiss
-    @StateObject var viewModel: RecipeCreateViewModel
+    @StateObject private var viewModel: RecipeCreateViewModel
     
     @FocusState private var focusedField: Field?
     
@@ -19,6 +19,14 @@ struct RecipeCreateView: View {
     
     enum Field {
         case title, description, ingredient, instruction
+    }
+    
+    init(recipeRepository: RecipeRepositoryProtocol, authService: AuthServiceProtocol, toastManager: ToastManager) {
+        _viewModel = StateObject(wrappedValue: RecipeCreateViewModel(
+            recipeRepository: recipeRepository,
+            authService: authService,
+            toastManager: toastManager
+        ))
     }
 
     var body: some View {
@@ -244,11 +252,10 @@ private extension RecipeCreateView {
     let previewAuth = AuthService()
     let previewToast = ToastManager()
     
-    let previewViewModel = RecipeCreateViewModel(
+
+    RecipeCreateView(
         recipeRepository: previewRepo,
         authService: previewAuth,
         toastManager: previewToast
     )
-
-    RecipeCreateView(viewModel: previewViewModel)
 }

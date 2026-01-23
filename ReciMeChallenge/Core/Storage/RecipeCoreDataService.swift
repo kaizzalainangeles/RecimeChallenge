@@ -9,9 +9,9 @@ import Foundation
 import CoreData
 
 protocol RecipePersistenceService{
-    func saveRecipes(_ recipes: [Recipe])
+    func saveRecipes(_ recipes: [Recipe]) throws
     func fetchRecipes() -> [Recipe]
-    func deleteRecipe(id: String)
+    func deleteRecipe(id: String) throws
 }
 
 final class RecipeCoreDataStorage: RecipePersistenceService {
@@ -26,16 +26,18 @@ final class RecipeCoreDataStorage: RecipePersistenceService {
         }
     }
     
-    var context: NSManagedObjectContext { container.viewContext }
+    var context: NSManagedObjectContext {
+        container.viewContext
+    }
     
-    func save() {
+    func save() throws {
         if context.hasChanges {
-            try? context.save()
+            try context.save()
         }
     }
     
-    func saveRecipes(_ recipes: [Recipe]) {
-        recipes.forEach { recipe in
+    func saveRecipes(_ recipes: [Recipe]) throws {
+        for recipe in recipes {
             // 1. Check for existing entity to prevent duplicates (Upsert)
             let request: NSFetchRequest<RecipeEntity> = RecipeEntity.fetchRequest()
             request.predicate = NSPredicate(format: "id == %@", recipe.id)
@@ -56,14 +58,18 @@ final class RecipeCoreDataStorage: RecipePersistenceService {
             entity.creatorId = recipe.creatorId
             
             // 3. Encode complex types
-            let encoder = JSONEncoder()
-            entity.ingredients = try? encoder.encode(recipe.ingredients)
-            entity.instructions = try? encoder.encode(recipe.instructions)
-            entity.dietaryAttributes = try? encoder.encode(recipe.dietaryAttributes)
+            do {
+                let encoder = JSONEncoder()
+                entity.ingredients = try encoder.encode(recipe.ingredients)
+                entity.instructions = try encoder.encode(recipe.instructions)
+                entity.dietaryAttributes = try encoder.encode(recipe.dietaryAttributes)
+            } catch {
+                throw RecipeError.persistenceFailure(error.localizedDescription)
+            }
         }
         
         // 4. Perform the save
-        save()
+        try save()
     }
     
     func fetchRecipes() -> [Recipe] {
@@ -98,14 +104,14 @@ final class RecipeCoreDataStorage: RecipePersistenceService {
         }
     }
     
-    func deleteRecipe(id: String) {
+    func deleteRecipe(id: String) throws {
         let request: NSFetchRequest<RecipeEntity> = RecipeEntity.fetchRequest()
         request.predicate = NSPredicate(format: "id == %@", id)
 
         if let entityToDelete = try? context.fetch(request).first {
             context.delete(entityToDelete)
             
-            save()
+            try save()
         }
     }
 }

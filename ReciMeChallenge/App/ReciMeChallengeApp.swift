@@ -29,7 +29,7 @@ struct ReciMeChallengeApp: App {
 
     var body: some Scene {
         WindowGroup {
-            MainContainerView(repository: repository, authService: authService)
+            MainContainerView(recipeRepository: repository, authService: authService)
         }
     }
 }

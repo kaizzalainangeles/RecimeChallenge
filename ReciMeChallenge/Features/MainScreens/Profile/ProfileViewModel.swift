@@ -43,4 +43,9 @@ class ProfileViewModel: ObservableObject {
     func onSettingsTapped() {
         toastManager.show(style: .info, message: "Settings tapped!")
     }
+    
+    // The UI associated to this is for display purpose only
+    func onNotificationToggle() {
+        toastManager.show(style: .info, message: "Notifications toggled!")
+    }
 }
