@@ -75,14 +75,17 @@ ReciMeChallenge/
 │   ├── Repository/        # Data coordination layer
 │   ├── Services/          # Business services (API, mock)
 │   └── Storage/           # Core Data services
+│   └── Utility/           # Utilities for UI
 ├── Features/              # UI features organized by domain
-│   └── Recipes/           # Recipe-related features
+│   └── MainScreens/       # Main Feature Screens
 │       ├── CreateRecipe/  # Recipe creation
 │       ├── Dashboard/     # Main dashboard
 │       ├── Explore/       # Search and explore
 │       ├── MainContainer/ # Tab container
 │       ├── MyRecipes/     # User's recipes
 │       └── RecipeDetail/  # Recipe details
+│       └── Profile/       # Profile   
+│   └── Shared/            # Shared Views
 └── Resources/             # External resources (JSON)
 ```
 
