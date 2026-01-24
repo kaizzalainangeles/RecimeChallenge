@@ -7,35 +7,62 @@
 
 import SwiftUI
 
-/// An image loader that handles URL fetching, loading states, and error fallbacks.
+/// An image loader that handles both local file paths and remote URLs.
 struct RecipeImageView: View {
     let recipe: Recipe
     var contentMode: ContentMode = .fill
     
     var body: some View {
-        if let url = recipe.resolvedImageURL {
-            AsyncImage(url: url) { phase in
-                switch phase {
-                case .success(let image):
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: contentMode)
-                        .transition(.opacity.combined(with: .scale(scale: 0.95)))
-                case .failure(_):
-                    placeholderView
-                case .empty:
-                    loadingView
-                @unknown default:
-                    placeholderView
+        Group {
+            if let url = recipe.resolvedImageURL {
+                if url.isFileURL {
+                    localImageView(for: url)
+                } else {
+                    remoteImageView(for: url)
                 }
+            } else {
+                placeholderView
             }
-            .id(url) // Forces refresh if the URL changes
+        }
+    }
+    
+    // MARK: - Image Variants
+    
+    /// Loads local files directly from disk to prevent URLSession cancellation errors.
+    @ViewBuilder
+    private func localImageView(for url: URL) -> some View {
+        if let uiImage = UIImage(contentsOfFile: url.path) {
+            styleImage(Image(uiImage: uiImage))
         } else {
             placeholderView
         }
     }
     
-    // MARK: - Subviews
+    /// Loads remote images using the standard AsyncImage pipeline.
+    private func remoteImageView(for url: URL) -> some View {
+        AsyncImage(url: url) { phase in
+            switch phase {
+            case .success(let image):
+                styleImage(image)
+                    .transition(.opacity.combined(with: .scale(scale: 0.95)))
+            case .failure:
+                placeholderView
+            case .empty:
+                loadingView
+            @unknown default:
+                placeholderView
+            }
+        }
+        .id(url)
+    }
+    
+    // MARK: - Helpers & Subviews
+
+    private func styleImage(_ image: Image) -> some View {
+        image
+            .resizable()
+            .aspectRatio(contentMode: contentMode)
+    }
     
     private var loadingView: some View {
         ZStack {
