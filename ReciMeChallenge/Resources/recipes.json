@@ -577,7 +577,6 @@
   },
   {
     "id": "C3D4E5F6-D4E5-F6G7-H8I9-J0K1L2M3N4O5",
-    "title": "Caprese Salad",
     "description": "Tomato, mozzarella, and basil.",
     "servings": 2,
     "ingredients": [
@@ -595,7 +594,6 @@
     "image_url": "https://picsum.photos/600/400?random=29"
   },
   {
-    "id": "D4E5F6G7-E5F6-G7H8-I9J0-K1L2M3N4O5P6",
     "title": "Hummus",
     "description": "Smooth chickpea dip.",
     "servings": 4,

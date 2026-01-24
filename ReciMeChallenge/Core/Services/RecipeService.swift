@@ -23,16 +23,28 @@ final class FetchRecipeService: RecipeService {
             // 2. Load the raw data from the file.
             let data = try Data(contentsOf: url)
             
-            // 3. Configure the JSON decoder.
             let decoder = JSONDecoder()
-            
             // Note: This allows the decoder to match "imageUrl" in Swift to "imageUrl" or "image_url" in JSON
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             
-            // 4. Decode the data into an array of Recipe objects.
-            return try decoder.decode([Recipe].self, from: data)
+            // 4. Decode the data into an array of Recipe objects (return nil if a mandatory field is missing)
+            let recipes = try decoder.decode([Safe<Recipe>].self, from: data)
+            return recipes.compactMap { $0.value }
         } catch {
             throw RecipeError.decodingError(error.localizedDescription)
+        }
+    }
+}
+
+private struct Safe<T: Decodable>: Decodable {
+    let value: T?
+
+    init(from decoder: Decoder) throws {
+        do {
+            let container = try decoder.singleValueContainer()
+            self.value = try container.decode(T.self)
+        } catch {
+            self.value = nil
         }
     }
 }

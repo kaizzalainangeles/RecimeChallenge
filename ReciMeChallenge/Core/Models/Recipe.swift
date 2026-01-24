@@ -31,7 +31,7 @@ struct Recipe: Identifiable, Codable, Hashable {
         ingredients: [Ingredient],
         instructions: [String],
         dietaryAttributes: DietaryAttributes,
-        imageUrl: URL?,
+        imageUrl: URL? = nil,
         creatorId: String? = nil
     ) {
         self.id = id

@@ -5,8 +5,6 @@
 //  Created by Kaizz Alain Benipayo Angeles on 1/24/26.
 //
 
-import Foundation
-import Combine
 import XCTest
 
 @testable import ReciMeChallenge
@@ -39,8 +37,10 @@ final class RecipeRepositoryTests: XCTestCase {
         
         mockService.mockRecipes = [remoteRecipe]
 
+        // When
         try await repository.sync()
 
+        // Then
         XCTAssertEqual(repository.recipes.count, 1)
         XCTAssertEqual(repository.recipes.first?.id, "101")
     }
@@ -59,8 +59,10 @@ final class RecipeRepositoryTests: XCTestCase {
         
         mockPersistence.storedRecipes = [recipe]
         
+        // When
         try repository.deleteRecipe(recipe)
-
+        
+        // Then
         XCTAssertTrue(mockPersistence.storedRecipes.isEmpty)
     }
 }
