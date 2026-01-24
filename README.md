@@ -6,9 +6,18 @@ A modern iOS recipe browsing and creation application built with Swift and Swift
 
 ## Overview
 
-ReciMeChallenge is a feature-rich iOS application that allows users to browse, search, and create cooking recipes. The app provides an intuitive interface for viewing recipe details including title, description, servings, ingredients, cooking instructions, and dietary attributes. 
+ReciMeChallenge is a feature-rich iOS application that allows users to browse, search, and create cooking recipes. The app provides an intuitive interface for viewing recipe details including title, description, servings, ingredients, cooking instructions, and dietary attributes.
 
-Initially built to meet basic requirements of browsing mock recipe data from a local JSON file, the app has been enhanced with additional features like recipe creation, image support, persistent storage with Core Data, toast notifications, concurrency handling, and modern UI management.
+### Beyond The Requirements
+
+While the initial challenge requirements only specified implementing a recipe browsing and searching application using mock API data, this implementation goes beyond by adding:
+
+- Recipe creation functionality
+- Image support for recipes
+- Persistent storage using Core Data
+- Toast notifications for user feedback
+- Modern concurrency handling with async/await
+- Data validation and sanitization
 
 ## Features
 
@@ -93,8 +102,10 @@ ReciMeChallenge/
 │   │   ├── Profile/       # User profile 
 │   │   └── RecipeDetail/  # Recipe details
 │   └── Shared/            # Shared UI components
-└── Resources/             # External resources (JSON data)
+└── Resources/             # External resources (recipes.json)
 ```
+
+The modular structure allows for easy navigation and future expansion of the codebase.
 
 ## Key Design Decisions
 
@@ -158,6 +169,9 @@ Key Core Data design choices:
 - Upsert pattern to handle duplicates
 - Error handling with meaningful errors
 - Default values for optional properties
+- Data validation to filter out entries with missing required fields
+
+A synchronous approach was chosen for Core Data operations to keep the implementation straightforward for the MVP, though an asynchronous implementation using `perform` and `performAsync` would be more suitable for a production application with larger datasets.
 
 ### 5. Swift Concurrency
 
@@ -193,6 +207,8 @@ var resolvedImageURL: URL? {
     return documentsDirectory.appendingPathComponent(fileName)
 }
 ```
+
+For the initial implementation, random placeholder images from picsum.photos (e.g., https://picsum.photos/600/400?random=1) are used for recipes from the JSON file, since actual recipe images weren't part of the original requirements.
 
 ### 7. Toast Notification System
 
@@ -231,7 +247,7 @@ This enhances user experience by providing immediate feedback for actions.
 
 2. **Core Data for Storage**:
    - **Pro**: Robust, built-in solution with relationship support
-   - **Con**: Added complexity compared to simpler solutions like UserDefaults
+   - **Con**: Higher implementation complexity compared to lightweight persistence solutions (e.g., UserDefaults)
    - **Note**: Selected for its ability to handle complex object relationships and querying capabilities
 
 3. **SwiftUI-Only Approach**:
@@ -259,25 +275,29 @@ struct DietaryAttributes: Codable, Hashable {
 
 ## Known Limitations
 
-1. **Placeholder Images**: Recipe images use random placeholder images from picsum.photos rather than actual food images.
+1. **Placeholder Images**: Recipe images use random placeholder images from picsum.photos rather than actual food images (e.g., https://picsum.photos/600/400?random=1) and don't reflect the actual recipe content.
 
-2. **UI-Only Elements**: Some UI elements (e.g., Profile settings, Sign Out button) are implemented for presentation purposes only and trigger toast notifications rather than full functionality.
+2. **No Edit Feature**: Recipe editing functionality is not currently implemented.
 
-3. **Authentication**: No user authentication capabilities are implemented.
+3. **Core Data Implementation**: The Core Data implementation uses a synchronous approach for simplicity. An asynchronous approach (using `perform` and `performAsync`) would be preferable for a production app. For this MVP, a synchronous implementation was intentionally chosen to reduce complexity while maintaining clarity, correctness, and predictability of data flow.
 
-4. **Data Synchronization**: No cloud synchronization between devices.
+4. **UI-Only Elements**: Some UI elements (e.g., Profile settings, Sign Out button) are implemented for presentation purposes only and trigger toast notifications rather than full functionality.
 
-5. **Limited Search Capabilities**: While the app supports basic searching and filtering, advanced search features are limited.
+5. **Authentication**: No user authentication capabilities are implemented.
 
-6. **Nutritional Information**: No calculation or display of nutritional values.
+6. **Data Synchronization**: No cloud synchronization between devices.
 
-7. **Recipe Scaling**: Recipe quantities cannot be automatically scaled for different serving sizes.
+7. **Limited Search Capabilities**: While the app supports basic searching and filtering, advanced search features are limited.
 
-8. **Validation**: Limited input validation for recipe creation.
+8. **Nutritional Information**: No calculation or display of nutritional values.
 
-9. **Performance Optimization**: The app is optimized for moderate recipe collections; large datasets would require additional optimization.
+9. **Recipe Scaling**: Recipe quantities cannot be automatically scaled for different serving sizes.
 
-10. **Testing Coverage**: Limited automated testing implementation.
+10. **Data Validation**: The app includes basic validation to filter out "dirty" data with missing mandatory fields from the JSON file, but more comprehensive validation would be beneficial.
+
+11. **Performance Considerations**: For larger datasets, the current implementation might benefit from more optimized data handling approaches.
+
+12. **Testing Coverage**: Basic unit tests are implemented, but more comprehensive test coverage would be valuable.
 
 ## Future Enhancement Opportunities
 
