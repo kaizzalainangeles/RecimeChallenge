@@ -35,9 +35,9 @@ While the initial challenge requirements only specified implementing a recipe br
 
 ### Requirements
 
-- Xcode 14.0+ (recommended: latest version)
-- iOS 15.0+ (designed for iOS 16+)
-- Swift 5.7+
+- Xcode 26.2 (tested)
+- iOS 26.0 (tested)
+- Swift 5.0
 
 ### Installation
 
