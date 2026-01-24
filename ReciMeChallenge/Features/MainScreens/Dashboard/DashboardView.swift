@@ -7,13 +7,17 @@
 
 import SwiftUI
 
+/// Defines the category of content for slider sections on the dashboard
 enum RecipeGroupType {
     case featured
     case owned
 }
 
+/// The main entry-point view that displays the home screen
 struct RecipeDashboardView: View {
     @StateObject private var viewModel: DashboardViewModel
+    
+    /// Binding to the parent's tab selection to switch tabs when needed.
     @Binding var selectedTab: Tab
     
     init(recipeRepository: RecipeRepositoryProtocol, authService: AuthServiceProtocol, toastManager: ToastManager, selectedTab: Binding<Tab>) {
@@ -62,6 +66,7 @@ struct RecipeDashboardView: View {
             }
             .background(Color(.systemGroupedBackground))
             .toolbar {
+                // Branding Logo on the left
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: viewModel.onLogoButtonTapped) {
                         Image("ReciMeChallengeLogo")

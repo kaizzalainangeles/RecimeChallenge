@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A row displaying an ingredient name and its corresponding measurement in a capsule.
 struct IngredientRowView: View {
     let ingredient: Ingredient
     

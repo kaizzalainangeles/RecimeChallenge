@@ -13,7 +13,6 @@ class DashboardViewModel: ObservableObject {
     @Published var featuredRecipes: [Recipe] = []
     @Published var ownedRecipes: [Recipe] = []
     @Published var allRecipes: [Recipe] = []
-    @Published var searchText: String = ""
     
     private let recipeRepository: RecipeRepositoryProtocol
     private let authService: AuthServiceProtocol
@@ -36,12 +35,12 @@ class DashboardViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
-    // Select 5 random recipes to display for featured recipes
+    /// Randomly selects 5 recipes to show in the "Featured" section to keep the UI fresh.
     func selectRandomFeatured() {
         featuredRecipes = Array(allRecipes.shuffled().prefix(5))
     }
     
-    // Select 5 random owned recipes to display
+    /// Filters the main list to find recipes belonging to the "logged-in" user.
     func selectOwnedRecipes() {
         let creatorId = authService.currentUserId
         let recipesWithSameCreatorId = allRecipes.filter { $0.creatorId == creatorId }
@@ -49,14 +48,7 @@ class DashboardViewModel: ObservableObject {
         ownedRecipes = Array(recipesWithSameCreatorId.shuffled().prefix(5))
     }
     
-    var filteredRecipes: [Recipe] {
-        if searchText.isEmpty {
-            return allRecipes
-        } else {
-            return allRecipes.filter { $0.title.localizedCaseInsensitiveContains(searchText) }
-        }
-    }
-    
+    /// Triggers a fetch and updates the local repository.
     func refreshData() async {
         do {
             try await recipeRepository.sync()
@@ -64,7 +56,11 @@ class DashboardViewModel: ObservableObject {
             toastManager.show(style: .error, message: error.localizedDescription)
         }
     }
-    
+}
+
+
+/// Methods used for "display-only" UI
+extension DashboardViewModel {
     func onLogoButtonTapped() {
         toastManager.show(style: .success, message: "Logo tapped!")
     }

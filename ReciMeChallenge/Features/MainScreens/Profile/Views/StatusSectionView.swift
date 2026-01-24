@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A container that displays user metrics side-by-side.
 struct StatusSectionView: View {
     let recipeCount: Int
     let followers: Int

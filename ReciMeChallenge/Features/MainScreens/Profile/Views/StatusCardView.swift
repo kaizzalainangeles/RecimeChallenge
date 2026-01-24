@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A small, square-ish card used to display a single metric (e.g., Follower count).
 struct StatusCardView: View {
     let title: String
     let value: Int

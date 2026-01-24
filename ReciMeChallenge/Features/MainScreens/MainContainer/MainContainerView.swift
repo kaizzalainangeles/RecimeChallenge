@@ -7,21 +7,23 @@
 
 import SwiftUI
 
+/// The root view of the application that manages the TabView and global overlays.
 struct MainContainerView: View {
+    // MARK: - Dependencies
     let recipeRepository: RecipeRepositoryProtocol
     let authService: AuthServiceProtocol
     
+    // MARK: - State Management
     @StateObject private var toastManager = ToastManager()
-    
     @State private var selectedTab: Tab = .home
     @State private var showAddRecipe = false
     @State private var activeToast: Toast? = nil
     
     var body: some View {
+        // GeometryReader helps position the Floating Create Button
         GeometryReader { geometry in
             ZStack(alignment: .bottomTrailing) {
                 TabView(selection: $selectedTab) {
-                    
                     // 1. DASHBOARD TAB
                     RecipeDashboardView(
                         recipeRepository: recipeRepository,
@@ -67,6 +69,8 @@ struct MainContainerView: View {
                 .defaultAdaptableTabBarPlacement(.tabBar)
                 .tint(.orange) // Sets the active tab color to match ReciMe theme
                 
+                // 2. FLOATING ACTION BUTTON (FAB)
+                // Positioned above the TabBar for quick access to adding recipe
                 FloatingAddButton {
                     showAddRecipe = true
                 }
@@ -82,6 +86,7 @@ struct MainContainerView: View {
                 toastManager: toastManager
             )
         }
+        // Allows any child view to access the toastManager without explicit passing
         .environmentObject(toastManager)
     }
 }

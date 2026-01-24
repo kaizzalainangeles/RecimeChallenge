@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A loading indicator inspired from ReciMe App consisting of three orange dots that hop in sequence.
 struct HoppingDotsLoader: View {
     @State private var dotOffset: CGFloat = 0
     

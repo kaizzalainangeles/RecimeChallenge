@@ -7,11 +7,13 @@
 
 import SwiftUI
 
+/// A vertically scrolling grid that displays recipe cards in a responsive layout.
 struct RecipeGridView: View {
     let recipes: [Recipe]
     var isLoadingMore: Bool = false
     var onReachEnd: (() -> Void)? = nil // Pagination trigger
     
+    /// Defines a responsive grid: it fits as many columns as possible with a minimum width of 170pt.
     private let columns = [
         GridItem(.adaptive(minimum: 170, maximum: .infinity), spacing: 16)
     ]

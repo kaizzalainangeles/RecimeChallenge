@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// A generic wrapper that adds a consistent title, vertical spacing, and a bottom divider to any content.
 struct RecipeSectionView<Content: View>: View {
     let title: String
     let content: Content

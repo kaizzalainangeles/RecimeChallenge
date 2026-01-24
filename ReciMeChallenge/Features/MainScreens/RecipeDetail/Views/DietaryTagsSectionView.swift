@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A horizontal scrolling row that displays all active dietary tags (like Vegan or Gluten-Free) for a recipe.
 struct DietaryTagsSection: View {
     let recipe: Recipe
     

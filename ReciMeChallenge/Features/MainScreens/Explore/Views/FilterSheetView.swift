@@ -7,7 +7,9 @@
 
 import SwiftUI
 
+/// A modal screen that allows users to modify recipe search results based on specific criteria.
 struct FilterSheetView: View {
+    // Shared state from the Explore screen to keep filters in sync
     @ObservedObject var viewModel: ExploreViewModel
     @Environment(\.dismiss) var dismiss
     

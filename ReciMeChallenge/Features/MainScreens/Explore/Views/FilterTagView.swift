@@ -1,5 +1,5 @@
 //
-//  TagView.swift
+//  FilterTagView.swift
 //  ReciMeChallenge
 //
 //  Created by Kaizz Alain Benipayo Angeles on 1/23/26.
@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A small capsule view representing an active filter.
 struct FilterTagView: View {
     let text: String
     let color: Color

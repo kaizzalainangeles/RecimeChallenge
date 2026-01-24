@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// Displays the main headline of the recipe, including the title and serving information.
 struct RecipeMetaView: View {
     let recipe: Recipe
     

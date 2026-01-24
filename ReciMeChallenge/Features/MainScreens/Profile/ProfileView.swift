@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// The screen representing the user's account and app preferences.
 struct ProfileView: View {
     @EnvironmentObject var toastManager: ToastManager
     @StateObject var viewModel: ProfileViewModel
@@ -57,9 +58,8 @@ struct ProfileView: View {
                         }
                 }
 
-                // 4. PREFERENCES
+                // 4. PREFERENCES - This is for display purpose only
                 Section("Preferences") {
-                    // This is for display purpose only
                     Toggle(isOn: $viewModel.notificationsEnabled) {
                         Label("Notifications", systemImage: "bell.badge")
                     }
@@ -69,9 +69,8 @@ struct ProfileView: View {
                     .tint(.orange)
                 }
 
-                // 5. ACCOUNT ACTIONS
+                // 5. ACCOUNT ACTIONS - This is for display purpose only
                 Section {
-                    // This is for display purpose only
                     Button(role: .destructive, action: viewModel.onSignOutTapped) {
                         Text("Sign Out")
                             .frame(maxWidth: .infinity, alignment: .center)

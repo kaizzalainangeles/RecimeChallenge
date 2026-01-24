@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A circular button that floats in the bottom-right corner, used to trigger the "Create Recipe" flow.
 struct FloatingAddButton: View {
     let action: () -> Void
     

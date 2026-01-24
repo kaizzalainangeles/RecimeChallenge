@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// Defines how the recipe card should look
 enum CardStyle: Equatable {
     case minimal(context: MinimalContext)    // For Grids (Explore and MyRecipes)
     case wide       // For Horizontal scrolling (Dashboard)
@@ -17,6 +18,7 @@ enum CardStyle: Equatable {
     }
 }
 
+/// A card view that display some recipe main detail based on a provided style.
 struct RecipeCardView: View {
     let recipe: Recipe
     let style: CardStyle
@@ -24,7 +26,7 @@ struct RecipeCardView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             // 1. IMAGE SECTION
-            RecipeImage(recipe: recipe)
+            RecipeImageView(recipe: recipe)
                 .frame(height: imageSize)
                 .frame(maxWidth: .infinity)
                 .background(Color.gray.opacity(0.1))

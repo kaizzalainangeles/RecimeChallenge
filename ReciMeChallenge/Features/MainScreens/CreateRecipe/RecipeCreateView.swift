@@ -8,6 +8,7 @@
 import SwiftUI
 import PhotosUI
 
+/// The screen where users can input details to create a new recipe.
 struct RecipeCreateView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject private var viewModel: RecipeCreateViewModel
@@ -21,6 +22,7 @@ struct RecipeCreateView: View {
         case title, description, ingredient, instruction
     }
     
+    /// Custom initializer to inject dependencies into the ViewModel.
     init(recipeRepository: RecipeRepositoryProtocol, authService: AuthServiceProtocol, toastManager: ToastManager) {
         _viewModel = StateObject(wrappedValue: RecipeCreateViewModel(
             recipeRepository: recipeRepository,

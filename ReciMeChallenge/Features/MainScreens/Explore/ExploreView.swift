@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// The main search screen where users can browse and filter recipes.
 struct ExploreView: View {
     @StateObject private var viewModel: ExploreViewModel
     @State private var showFilters = false
@@ -21,13 +22,14 @@ struct ExploreView: View {
                 UpperGradientView()
                 
                 VStack(alignment: .leading, spacing: 0) {
+                    // 1. SEARCH BAR: Inputs for text search and filter modal trigger
                     SearchBarView(
                         searchText: $viewModel.searchText,
                         onFilterTap: { showFilters = true }
                     )
                     .padding(.bottom, 8)
                     
-                    // Replace the old ForEach(Array(viewModel.selectedFilters)...) with:
+                    // 2. ACTIVE FILTERS BAR: Shows removable tags for active criteria
                     if viewModel.criteria.isActive {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack {
@@ -78,6 +80,7 @@ struct ExploreView: View {
                         }
                     }
                     
+                    /// Just a label for the previewed recipes when there's an empty search and filter
                     if viewModel.searchText.isEmpty && !viewModel.criteria.isActive && !viewModel.filteredRecipes.isEmpty {
                         Text("Popular Recipes")
                             .font(Font.title2.bold())

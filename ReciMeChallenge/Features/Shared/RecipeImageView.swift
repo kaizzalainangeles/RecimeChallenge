@@ -7,7 +7,8 @@
 
 import SwiftUI
 
-struct RecipeImage: View {
+/// An image loader that handles URL fetching, loading states, and error fallbacks.
+struct RecipeImageView: View {
     let recipe: Recipe
     var contentMode: ContentMode = .fill
     
@@ -65,5 +66,5 @@ struct RecipeImage: View {
         imageURL: nil
     )
     
-    RecipeImage(recipe: previewRecipe)
+    RecipeImageView(recipe: previewRecipe)
 }

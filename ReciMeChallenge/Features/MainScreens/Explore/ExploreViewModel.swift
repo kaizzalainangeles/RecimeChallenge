@@ -9,6 +9,7 @@ import Foundation
 import Combine
 import SwiftUI
 
+/// Handles the filtering, searching, and pagination logic for the Explore screen.
 @MainActor
 class ExploreViewModel: ObservableObject {
     @Published var searchText: String = ""
@@ -25,6 +26,7 @@ class ExploreViewModel: ObservableObject {
     init(recipeRepository: RecipeRepositoryProtocol) {
         self.recipeRepository = recipeRepository
         
+        // 1. Sync with the Source of Truth
         recipeRepository.recipesPublisher
             .sink { [weak self] in
                 self?.allRecipes = $0
@@ -32,9 +34,10 @@ class ExploreViewModel: ObservableObject {
             }
             .store(in: &cancellables)
         
-        // Listen to both searchText and criteria changes
+        // 2. Reactive Search Logic
+        // CombineLatest watches both the search bar and the filter sheet
         Publishers.CombineLatest($searchText, $criteria)
-            .debounce(for: .milliseconds(300), scheduler: RunLoop.main)
+            .debounce(for: .milliseconds(300), scheduler: RunLoop.main) // Wait for user to stop typing
             .sink { [weak self] _ in
                 self?.resetAndSearch()
             }
@@ -46,6 +49,7 @@ class ExploreViewModel: ObservableObject {
         updateSearchResults()
     }
     
+    /// Applies filters and handles the data for the current page.
     private func updateSearchResults() {
         let results = allRecipes.filter { matches($0) }
         let limit = min(currentPage * pageSize, results.count)
@@ -55,6 +59,7 @@ class ExploreViewModel: ObservableObject {
         }
     }
 
+    /// The main filtering function
     private func matches(_ recipe: Recipe) -> Bool {
         // 1. Text Search
         if !searchText.isEmpty {
@@ -76,11 +81,11 @@ class ExploreViewModel: ObservableObject {
         // 4. Ingredients
         let recipeIngredientNames = recipe.ingredients.map { $0.name.lowercased() }
         
-        // Check Exclusions first (Fast fail)
+        // Check Exclusions (Fail fast if an "avoid" ingredient is found)
         let hasExcluded = !criteria.excludedIngredients.isDisjoint(with: Set(recipeIngredientNames))
         if hasExcluded { return false }
         
-        // Check Inclusions
+        // Check Inclusions (Must contain ALL specified ingredients)
         if !criteria.includedIngredients.isEmpty {
             let allIncludedPresent = criteria.includedIngredients.allSatisfy { included in
                 recipeIngredientNames.contains { $0.contains(included.lowercased()) }
@@ -104,20 +109,5 @@ class ExploreViewModel: ObservableObject {
                 self.isLoadingPage = false
             }
         }
-    }
-}
-
-struct RecipeFilterCriteria: Equatable {
-    var isVegetarian: Bool = false
-    var isVegan: Bool = false
-    var isGlutenFree: Bool = false
-    var isSugarFree: Bool = false
-    var minServings: Int = 1
-    var includedIngredients: Set<String> = []
-    var excludedIngredients: Set<String> = []
-    
-    // Helper to check if any filter is active (to show a badge)
-    var isActive: Bool {
-        isVegetarian || isVegan || isGlutenFree || isSugarFree || minServings > 1 || !includedIngredients.isEmpty || !excludedIngredients.isEmpty
     }
 }

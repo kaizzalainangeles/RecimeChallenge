@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A numbered row for cooking instructions with a circular index badge.
 struct InstructionStepRowView: View {
     let index: Int
     let text: String

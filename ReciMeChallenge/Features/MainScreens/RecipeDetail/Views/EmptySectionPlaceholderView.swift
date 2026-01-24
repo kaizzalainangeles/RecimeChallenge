@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A subtle, italicized view used to indicate when a recipe section (like Description) is empty.
 struct EmptySectionPlaceholderView: View {
     let message: String
     

@@ -9,6 +9,7 @@ import SwiftUI
 import Combine
 import PhotosUI
 
+/// Options for dietary preferences used in the creation form.
 enum DietaryFilter: String, CaseIterable {
     case vegetarian = "Vegetarian"
     case vegan = "Vegan"
@@ -36,6 +37,7 @@ class RecipeCreateViewModel: ObservableObject {
         self.toastManager = toastManager
     }
     
+    /// Main function for saving a new recipe.
     func save() {
         // 1. Saving the selected image to disk and retrieving the url
         let imageURL = saveSelectedImageToDisk()
@@ -76,6 +78,7 @@ class RecipeCreateViewModel: ObservableObject {
 // MARK: - Recipe Object Creation Helpers
 
 extension RecipeCreateViewModel {
+    /// Saves raw image data to disk
     func saveSelectedImageToDisk() -> URL? {
         guard let data = selectedImageData else { return nil }
         
@@ -87,6 +90,7 @@ extension RecipeCreateViewModel {
         }
     }
     
+    /// Sanitizes all text inputs to ensure clean data in the database.
     func cleanInputStrings() {
         // 1. Trim whitespace and newlines from the title
         self.title = self.title.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -114,6 +118,8 @@ extension RecipeCreateViewModel {
 // MARK: - Form Helpers
 
 extension RecipeCreateViewModel {
+    
+    /// Converts a PhotosPickerItem into raw Data asynchronously.
     func handleImageSelection(_ item: PhotosPickerItem?) {
         Task { @MainActor in
             guard let item = item else { return }
@@ -123,6 +129,7 @@ extension RecipeCreateViewModel {
         }
     }
     
+    /// Validates that the minimum required fields are filled correctly.
     func isFormValid() -> Bool {
         let hasTitle = !title.trimmingCharacters(in: .whitespaces).isEmpty
         

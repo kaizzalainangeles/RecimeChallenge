@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A horizontal carousel that displays a collection of recipes with a header.
 struct SliderView: View {
     // MARK: - Properties
     let title: String
@@ -31,6 +32,7 @@ struct SliderView: View {
     }
     
     // MARK: - Subviews
+
     private var headerSection: some View {
         Text(title)
             .font(.title2.bold())
@@ -125,7 +127,6 @@ struct SliderView: View {
         }
     }
 }
-
 
 #Preview {
     let previewRecipe = Recipe(

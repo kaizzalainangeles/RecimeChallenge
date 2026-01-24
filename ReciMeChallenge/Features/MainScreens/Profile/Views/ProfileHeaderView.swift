@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A header view that displays the user's avatar, name, and bio.
 struct ProfileHeaderView: View {
     let currentUser: User
     

@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A tag representing a single dietary attribute with an icon and label.
 struct DietaryTagView: View {
     let tag: DietaryAttributes.DietTag
     

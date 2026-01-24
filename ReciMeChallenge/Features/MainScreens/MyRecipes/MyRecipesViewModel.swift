@@ -8,10 +8,11 @@
 import Foundation
 import Combine
 
+/// Manages the data and logic for the user's personal recipe collection.
 @MainActor
 class MyRecipesViewModel: ObservableObject {
+    // The filtered list of recipes belonging to the current user
     @Published var myRecipes: [Recipe] = []
-    @Published var searchText: String = ""
     
     private let recipeRepository: RecipeRepositoryProtocol
     private let authService: AuthServiceProtocol
@@ -27,19 +28,13 @@ class MyRecipesViewModel: ObservableObject {
         recipeRepository.recipesPublisher
             .sink { [weak self] allRecipes in
                 let currentUserId = self?.authService.currentUserId
+                // Only keep recipes where the creator matches the logged-in user
                 self?.myRecipes = allRecipes.filter { $0.creatorId == currentUserId }
             }
             .store(in: &cancellables)
     }
     
-    var filteredRecipes: [Recipe] {
-        if searchText.isEmpty {
-            return myRecipes
-        } else {
-            return myRecipes.filter { $0.title.localizedCaseInsensitiveContains(searchText) }
-        }
-    }
-    
+    /// Triggers a fetch and updates the local repository
     func refreshData() async {
         do {
             try await recipeRepository.sync()
@@ -48,6 +43,7 @@ class MyRecipesViewModel: ObservableObject {
         }
     }
     
+    /// Removes a recipe from the repository
     func deleteRecipe(_ recipe: Recipe) {
         do {
             try recipeRepository.deleteRecipe(recipe)

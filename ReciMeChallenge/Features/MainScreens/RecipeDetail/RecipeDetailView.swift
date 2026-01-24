@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// The screen responsible for displaying all details for a specific recipe.
 struct RecipeDetailView: View {
     let recipe: Recipe
     
@@ -14,7 +15,7 @@ struct RecipeDetailView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 0) {
                 // 1. Full-width Image
-                RecipeImage(recipe: recipe)
+                RecipeImageView(recipe: recipe)
                     .frame(height: 240)
                     .overlay(
                         LinearGradient(colors: [.black.opacity(0.3), .clear], startPoint: .top, endPoint: .center)
@@ -75,4 +76,18 @@ struct RecipeDetailView: View {
         .ignoresSafeArea(.container, edges: .top)
         .navigationBarTitleDisplayMode(.inline)
     }
+}
+
+#Preview {
+    let previewRecipe = Recipe(
+        title: "Healthy Salad",
+        description: "A fresh and vibrant salad.",
+        servings: 2,
+        ingredients: [],
+        instructions: [],
+        dietaryAttributes: DietaryAttributes(),
+        imageURL: nil
+    )
+    
+    RecipeDetailView(recipe: previewRecipe)
 }

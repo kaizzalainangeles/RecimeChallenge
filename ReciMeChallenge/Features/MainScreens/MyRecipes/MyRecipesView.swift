@@ -7,12 +7,14 @@
 
 import SwiftUI
 
+/// The screen that displays the user's personal recipe collection with deletion and .
 struct MyRecipesView: View {
     @StateObject private var viewModel: MyRecipesViewModel
     
     @State private var recipeToDelete: Recipe?
     @State private var showDeleteConfirmation = false
 
+    /// Defines a responsive grid: it fits as many columns as possible with a minimum width of 170pt.
     private let columns = [
         GridItem(.adaptive(minimum: 170, maximum: .infinity), spacing: 16)
     ]
@@ -32,30 +34,13 @@ struct MyRecipesView: View {
                 
                 ScrollView {
                     VStack(alignment: .leading, spacing: 20) {
-                        HStack {
-                            VStack(alignment: .leading) {
-                                Text("\(viewModel.myRecipes.count)")
-                                    .font(.title.bold())
-                                Text("Total Recipes")
-                                    .font(.caption)
-                                    .foregroundColor(.secondary)
-                            }
-                            Spacer()
-                            Image(systemName: "fork.knife.circle.fill")
-                                .resizable()
-                                .frame(width: 40, height: 40)
-                                .foregroundColor(.orange.opacity(0.8))
-                        }
-                        .padding()
-                        .background(Color(.secondarySystemGroupedBackground))
-                        .cornerRadius(15)
-                        .padding(.horizontal)
+                        SummaryCardView(recipeCount: viewModel.myRecipes.count)
                         
                         if viewModel.myRecipes.isEmpty {
                             emptyStateView
                         } else {
                             LazyVGrid(columns: columns, spacing: 16) {
-                                ForEach(viewModel.filteredRecipes) { recipe in
+                                ForEach(viewModel.myRecipes) { recipe in
                                     NavigationLink(destination: RecipeDetailView(recipe: recipe)) {
                                         RecipeCardView(recipe: recipe, style: .minimal(context: .myRecipes))
                                             .contentShape(Rectangle())
@@ -82,6 +67,7 @@ struct MyRecipesView: View {
             }
             .background(Color(.systemGroupedBackground))
             .navigationTitle("My Recipes")
+            // MARK: - Deletion Alert
             .alert("Delete Recipe?", isPresented: $showDeleteConfirmation, presenting: recipeToDelete) { recipe in
                 Button("Delete", role: .destructive) {
                     withAnimation {
@@ -97,6 +83,8 @@ struct MyRecipesView: View {
         }
     }
     
+    // MARK: - Helper Views
+
     private var emptyStateView: some View {
         VStack(spacing: 20) {
             Spacer(minLength: 50)

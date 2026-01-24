@@ -7,9 +7,10 @@
 
 import SwiftUI
 
+/// A custom search input field with an integrated filter button.
 struct SearchBarView: View {
-    @Binding var searchText: String
-    var onFilterTap: () -> Void
+    @Binding var searchText: String // Linked to the VM's search text
+    var onFilterTap: () -> Void // Opens the FilterSheetView
     
     @FocusState private var isFocused: Bool
     

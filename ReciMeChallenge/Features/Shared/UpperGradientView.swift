@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A Gradient View used to give accent to the 3 main screens (Dashboard, Search, My Recipe)
 struct UpperGradientView: View {
     var body: some View {
         LinearGradient(
@@ -17,4 +18,8 @@ struct UpperGradientView: View {
         .frame(height: 300)
         .ignoresSafeArea(edges: .top)
     }
+}
+
+#Preview {
+    UpperGradientView()
 }
