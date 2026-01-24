@@ -39,7 +39,7 @@ struct DietaryTagsSection: View {
         ingredients: [],
         instructions: [],
         dietaryAttributes: previewAttributes,
-        imageURL: nil
+        imageUrl: nil
     )
     
     DietaryTagsSection(recipe: previewRecipe)

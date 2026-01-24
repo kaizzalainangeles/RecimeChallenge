@@ -55,7 +55,7 @@ struct RecipeGridView: View {
             ingredients: [Ingredient(name: "Egg", quantity: "1")],
             instructions: ["Cook", "Eat"],
             dietaryAttributes: DietaryAttributes(),
-            imageURL: nil,
+            imageUrl: nil,
             creatorId: nil
         ),
         Recipe(
@@ -65,7 +65,7 @@ struct RecipeGridView: View {
             ingredients: [Ingredient(name: "Chicken", quantity: "1")],
             instructions: ["Cook", "Eat"],
             dietaryAttributes: DietaryAttributes(),
-            imageURL: nil,
+            imageUrl: nil,
             creatorId: nil
         )
     ]

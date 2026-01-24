@@ -40,7 +40,7 @@ struct RecipeMetaView: View {
         ingredients: [],
         instructions: [],
         dietaryAttributes: previewAttributes,
-        imageURL: nil
+        imageUrl: nil
     )
     
     RecipeMetaView(recipe: previewRecipe)

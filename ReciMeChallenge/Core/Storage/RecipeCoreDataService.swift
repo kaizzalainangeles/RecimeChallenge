@@ -56,7 +56,7 @@ final class RecipeCoreDataStorage: RecipePersistenceService {
             // 2. Map properties
             entity.title = recipe.title
             entity.desc = recipe.description
-            entity.imageURL = recipe.imageURL
+            entity.imageURL = recipe.imageUrl
             entity.servings = Int16(recipe.servings)
             entity.creatorId = recipe.creatorId
             
@@ -102,7 +102,7 @@ final class RecipeCoreDataStorage: RecipePersistenceService {
                 ingredients: ingredients,
                 instructions: instructions,
                 dietaryAttributes: dietary,
-                imageURL: entity.imageURL,
+                imageUrl: entity.imageURL,
                 creatorId: entity.creatorId ?? nil
             )
         }

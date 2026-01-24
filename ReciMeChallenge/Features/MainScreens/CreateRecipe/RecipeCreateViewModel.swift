@@ -61,7 +61,7 @@ class RecipeCreateViewModel: ObservableObject {
             ingredients: ingredients.filter { !$0.name.isEmpty },
             instructions: instructions.filter { !$0.isEmpty },
             dietaryAttributes: dietary,
-            imageURL: imageURL,
+            imageUrl: imageURL,
             creatorId: authService.currentUserId
         )
         

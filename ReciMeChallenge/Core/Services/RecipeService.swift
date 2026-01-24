@@ -26,7 +26,7 @@ final class FetchRecipeService: RecipeService {
             // 3. Configure the JSON decoder.
             let decoder = JSONDecoder()
             
-            // Note: This allows the decoder to match "imageURL" in Swift to "imageURL" or "image_url" in JSON
+            // Note: This allows the decoder to match "imageUrl" in Swift to "imageUrl" or "image_url" in JSON
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             
             // 4. Decode the data into an array of Recipe objects.

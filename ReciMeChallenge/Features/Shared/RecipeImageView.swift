@@ -63,7 +63,7 @@ struct RecipeImageView: View {
         ingredients: [],
         instructions: [],
         dietaryAttributes: DietaryAttributes(),
-        imageURL: nil
+        imageUrl: nil
     )
     
     RecipeImageView(recipe: previewRecipe)

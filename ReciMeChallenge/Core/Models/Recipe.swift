@@ -20,7 +20,7 @@ struct Recipe: Identifiable, Codable, Hashable {
     let ingredients: [Ingredient]
     let instructions: [String]
     let dietaryAttributes: DietaryAttributes
-    let imageURL: URL?
+    let imageUrl: URL?
     let creatorId: String?
 
     init(
@@ -31,7 +31,7 @@ struct Recipe: Identifiable, Codable, Hashable {
         ingredients: [Ingredient],
         instructions: [String],
         dietaryAttributes: DietaryAttributes,
-        imageURL: URL?,
+        imageUrl: URL?,
         creatorId: String? = nil
     ) {
         self.id = id
@@ -41,7 +41,7 @@ struct Recipe: Identifiable, Codable, Hashable {
         self.ingredients = ingredients
         self.instructions = instructions
         self.dietaryAttributes = dietaryAttributes
-        self.imageURL = imageURL
+        self.imageUrl = imageUrl
         self.creatorId = creatorId
     }
 
@@ -62,12 +62,12 @@ struct Recipe: Identifiable, Codable, Hashable {
         dietaryAttributes = try container.decodeIfPresent(DietaryAttributes.self, forKey: .dietaryAttributes) ?? DietaryAttributes()
         
         // Truly optional field
-        imageURL = try container.decodeIfPresent(URL.self, forKey: .imageURL)
+        imageUrl = try container.decodeIfPresent(URL.self, forKey: .imageUrl)
         creatorId = try container.decodeIfPresent(String.self, forKey: .creatorId)
     }
     
     var resolvedImageURL: URL? {
-        guard let originalURL = imageURL else { return nil }
+        guard let originalURL = imageUrl else { return nil }
         
         if originalURL.scheme == "http" || originalURL.scheme == "https" {
             return originalURL

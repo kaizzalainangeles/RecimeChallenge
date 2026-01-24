@@ -114,7 +114,7 @@ struct RecipeCardView: View {
         ingredients: [],
         instructions: [],
         dietaryAttributes: previewAttributes,
-        imageURL: nil
+        imageUrl: nil
     )
     
     RecipeCardView(recipe: previewRecipe, style: .wide)
