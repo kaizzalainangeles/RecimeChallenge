@@ -2,7 +2,7 @@
 
 A modern iOS recipe browsing and creation application built with Swift and SwiftUI.
 
-![ReciMe App](ReciMeChallenge/Assets.xcassets/SplashLogo.imageset/Logo.png)
+![ReciMe App](ReciMeChallenge/Assets.xcassets/ReciMeChallengeLogo.imageset/Logo.png)
 
 ## Overview
 
