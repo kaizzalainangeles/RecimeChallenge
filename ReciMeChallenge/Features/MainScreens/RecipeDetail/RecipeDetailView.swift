@@ -13,14 +13,21 @@ struct RecipeDetailView: View {
     
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 0) {
-                // 1. Full-width Image
-                RecipeImageView(recipe: recipe)
-                    .frame(height: 240)
-                    .overlay(
-                        LinearGradient(colors: [.black.opacity(0.3), .clear], startPoint: .top, endPoint: .center)
-                    )
-                    .clipped()
+            ZStack(alignment: .top) {
+                // 1. Stretchy Full-width Image
+                GeometryReader { geo in
+                    let minY = geo.frame(in: .global).minY
+                    
+                    RecipeImageView(recipe: recipe)
+                        .frame(
+                            width: geo.size.width,
+                            height: geo.size.height + (minY > 0 ? minY : 0)
+                        )
+                        .clipped()
+                        // This offset keeps the top of the image stuck to the top of the screen
+                        .offset(y: minY > 0 ? -minY : 0)
+                }
+                .frame(height: 240)
                 
                 VStack(alignment: .leading, spacing: 24) {
                     // 2. Title
@@ -68,9 +75,10 @@ struct RecipeDetailView: View {
                     }
                 }
                 .padding(24)
+                .frame(maxWidth: .infinity, alignment: .leading)
                 .background(Color(.systemBackground))
                 .cornerRadius(30)
-                .offset(y: -30) // Overlaps the image slightly
+                .padding(.top, 210) // overlaps with the image
             }
         }
         .ignoresSafeArea(.container, edges: .top)
