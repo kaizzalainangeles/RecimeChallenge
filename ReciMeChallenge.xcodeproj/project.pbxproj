@@ -6,8 +6,19 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXContainerItemProxy section */
+		372EFAB02F25043300D1FBBC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 372EF4F82F1EBF3800D1FBBC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 372EF4FF2F1EBF3800D1FBBC;
+			remoteInfo = ReciMeChallenge;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		372EF5002F1EBF3800D1FBBC /* ReciMeChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReciMeChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		372EFAAC2F25043300D1FBBC /* ReciMeChallengeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ReciMeChallengeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -29,10 +40,22 @@
 			path = ReciMeChallenge;
 			sourceTree = "<group>";
 		};
+		372EFAAD2F25043300D1FBBC /* ReciMeChallengeTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = ReciMeChallengeTests;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		372EF4FD2F1EBF3800D1FBBC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		372EFAA92F25043300D1FBBC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -46,6 +69,7 @@
 			isa = PBXGroup;
 			children = (
 				372EF5022F1EBF3800D1FBBC /* ReciMeChallenge */,
+				372EFAAD2F25043300D1FBBC /* ReciMeChallengeTests */,
 				372EF5012F1EBF3800D1FBBC /* Products */,
 			);
 			sourceTree = "<group>";
@@ -54,6 +78,7 @@
 			isa = PBXGroup;
 			children = (
 				372EF5002F1EBF3800D1FBBC /* ReciMeChallenge.app */,
+				372EFAAC2F25043300D1FBBC /* ReciMeChallengeTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -83,6 +108,29 @@
 			productReference = 372EF5002F1EBF3800D1FBBC /* ReciMeChallenge.app */;
 			productType = "com.apple.product-type.application";
 		};
+		372EFAAB2F25043300D1FBBC /* ReciMeChallengeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 372EFAB22F25043300D1FBBC /* Build configuration list for PBXNativeTarget "ReciMeChallengeTests" */;
+			buildPhases = (
+				372EFAA82F25043300D1FBBC /* Sources */,
+				372EFAA92F25043300D1FBBC /* Frameworks */,
+				372EFAAA2F25043300D1FBBC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				372EFAB12F25043300D1FBBC /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				372EFAAD2F25043300D1FBBC /* ReciMeChallengeTests */,
+			);
+			name = ReciMeChallengeTests;
+			packageProductDependencies = (
+			);
+			productName = ReciMeChallengeTests;
+			productReference = 372EFAAC2F25043300D1FBBC /* ReciMeChallengeTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -95,6 +143,10 @@
 				TargetAttributes = {
 					372EF4FF2F1EBF3800D1FBBC = {
 						CreatedOnToolsVersion = 26.2;
+					};
+					372EFAAB2F25043300D1FBBC = {
+						CreatedOnToolsVersion = 26.2;
+						TestTargetID = 372EF4FF2F1EBF3800D1FBBC;
 					};
 				};
 			};
@@ -113,12 +165,20 @@
 			projectRoot = "";
 			targets = (
 				372EF4FF2F1EBF3800D1FBBC /* ReciMeChallenge */,
+				372EFAAB2F25043300D1FBBC /* ReciMeChallengeTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		372EF4FE2F1EBF3800D1FBBC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		372EFAAA2F25043300D1FBBC /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -135,7 +195,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		372EFAA82F25043300D1FBBC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		372EFAB12F25043300D1FBBC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 372EF4FF2F1EBF3800D1FBBC /* ReciMeChallenge */;
+			targetProxy = 372EFAB02F25043300D1FBBC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		372EF5242F1EBF3900D1FBBC /* Debug */ = {
@@ -340,6 +415,53 @@
 			};
 			name = Release;
 		};
+		372EFAB32F25043300D1FBBC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FJSB7CQ8KT;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kaizz.ReciMeChallengeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ReciMeChallenge.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ReciMeChallenge";
+			};
+			name = Debug;
+		};
+		372EFAB42F25043300D1FBBC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FJSB7CQ8KT;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kaizz.ReciMeChallengeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ReciMeChallenge.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ReciMeChallenge";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -357,6 +479,15 @@
 			buildConfigurations = (
 				372EF5272F1EBF3900D1FBBC /* Debug */,
 				372EF5282F1EBF3900D1FBBC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		372EFAB22F25043300D1FBBC /* Build configuration list for PBXNativeTarget "ReciMeChallengeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				372EFAB32F25043300D1FBBC /* Debug */,
+				372EFAB42F25043300D1FBBC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
