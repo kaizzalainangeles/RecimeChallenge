@@ -283,21 +283,23 @@ struct DietaryAttributes: Codable, Hashable {
 
 4. **UI-Only Elements**: Some UI elements (e.g., Profile settings, Sign Out button) are implemented for presentation purposes only and trigger toast notifications rather than full functionality.
 
-5. **Authentication**: No user authentication capabilities are implemented.
+5. **Inconsistent Constant Management**: While the Constants enum pattern was implemented in RecipeCreateView to demonstrate production-level string management and separation of concerns, it hasn't been unified across all views due to time constraints. In a production environment, all hardcoded strings would be moved to a centralized, localized system.
 
-6. **Data Synchronization**: No cloud synchronization between devices.
+6. **Authentication**: No user authentication capabilities are implemented.
 
-7. **Limited Search Capabilities**: While the app supports basic searching and filtering, advanced search features are limited.
+7. **Data Synchronization**: No cloud synchronization between devices.
 
-8. **Nutritional Information**: No calculation or display of nutritional values.
+8. **Limited Search Capabilities**: While the app supports basic searching and filtering, advanced search features are limited.
 
-9. **Recipe Scaling**: Recipe quantities cannot be automatically scaled for different serving sizes.
+9. **Nutritional Information**: No calculation or display of nutritional values.
 
-10. **Data Validation**: The app includes basic validation to filter out "dirty" data with missing mandatory fields from the JSON file, but more comprehensive validation would be beneficial.
+10. **Recipe Scaling**: Recipe quantities cannot be automatically scaled for different serving sizes.
 
-11. **Performance Considerations**: For larger datasets, the current implementation might benefit from more optimized data handling approaches.
+11. **Data Validation**: The app includes basic validation to filter out "dirty" data with missing mandatory fields from the JSON file, but more comprehensive validation would be beneficial.
 
-12. **Testing Coverage**: Basic unit tests are implemented, but more comprehensive test coverage would be valuable.
+12. **Performance Considerations**: For larger datasets, the current implementation might benefit from more optimized data handling approaches.
+
+13. **Testing Coverage**: Basic unit tests are implemented, but more comprehensive test coverage would be valuable.
 
 ## Future Enhancement Opportunities
 
