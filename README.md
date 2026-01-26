@@ -36,7 +36,7 @@ While the initial challenge requirements only specified implementing a recipe br
 ### Requirements
 
 - Xcode 26.2 (tested)
-- iOS 26.0 (tested)
+- iOS 26.2 (tested)
 - Swift 5.0
 
 ### Installation
