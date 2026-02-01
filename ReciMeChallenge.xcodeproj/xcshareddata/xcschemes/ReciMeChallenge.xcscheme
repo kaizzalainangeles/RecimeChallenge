@@ -35,7 +35,7 @@
             parallelizable = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "372EF5112F1EBF3900D1FBBC"
+               BlueprintIdentifier = "372EFAAB2F25043300D1FBBC"
                BuildableName = "ReciMeChallengeTests.xctest"
                BlueprintName = "ReciMeChallengeTests"
                ReferencedContainer = "container:ReciMeChallenge.xcodeproj">

@@ -27,7 +27,9 @@ struct HoppingDotsLoader: View {
             }
         }
         .onAppear {
-            dotOffset = -10
+            withAnimation {
+                dotOffset = (dotOffset == 0 ? -10 : 0)
+            }
         }
     }
 }
