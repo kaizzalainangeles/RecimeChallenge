@@ -2,7 +2,9 @@
 
 A modern iOS recipe browsing and creation application built with Swift and SwiftUI.
 
-![ReciMe App](ReciMeChallenge/Assets.xcassets/ReciMeChallengeLogo.imageset/Logo.png)
+<p align="center">
+  <img src="ReciMeChallenge/Assets.xcassets/ReciMeChallengeLogo.imageset/Logo.png" width="300" alt="ShimmerKit Demo">
+</p>
 
 ## Overview
 
