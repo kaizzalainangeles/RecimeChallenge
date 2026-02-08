@@ -5,6 +5,14 @@ A modern iOS recipe browsing and creation application built with Swift and Swift
 <p align="center">
   <img src="ReciMeChallenge/Assets.xcassets/ReciMeChallengeLogo.imageset/Logo.png" width="300" alt="ShimmerKit Demo">
 </p>
+<p align="center">
+  <img src=".github/assets/Dashboard.png" width="150" />
+  <img src=".github/assets/Search.png" width="150" />
+  <img src=".github/assets/Create.png" width="150" />
+  <img src=".github/assets/Create2.png" width="150" />
+  <img src=".github/assets/MyRecipes.png" width="150" />
+  <img src=".github/assets/Details.png" width="150" />
+</p>
 
 ## Overview
 
